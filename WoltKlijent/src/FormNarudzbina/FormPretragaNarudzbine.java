@@ -20,6 +20,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import main_forms.LoginForm;
 import model.Narudzbina;
 import models.TableModelNarudzbine;
@@ -48,6 +50,30 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
         thread.start();
         tblNarudzbine.setModel(model);
         customizeButtons();
+
+        txtPretraga.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            private void performSearch() {
+                String param = txtPretraga.getText();
+                TableModelNarudzbine tm = (TableModelNarudzbine) tblNarudzbine.getModel();
+                tm.setParametar(param);
+            }
+        });
+
     }
 
     /**
@@ -237,7 +263,7 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
         languageMenu.setText(messages.getString("jmenu"));
         SwingUtilities.updateComponentTreeUI(this);
     }
-    
+
     private void customizeButtons() {
         Color hoverColor = new Color(0, 165, 200);
         JButton[] buttons = {btnDetalji, btnPretrazi};

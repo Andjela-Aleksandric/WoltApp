@@ -19,11 +19,14 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import main_forms.LoginForm;
 import model.Jelo;
 import model.Klijent;
 import models.TableModelJelo;
 import models.TableModelKlijenti;
+import models.TableModelNarudzbine;
 
 /**
  *
@@ -51,6 +54,29 @@ public class FormPretragaJela extends javax.swing.JDialog {
         thread.start();
         tblJelo.setModel(tmj);
         customizeButtons();
+        
+        txtPretraga.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            private void performSearch() {
+                String param = txtPretraga.getText();
+                TableModelJelo tm = (TableModelJelo) tblJelo.getModel();
+                tm.setParametar(param);
+            }
+        });
     }
 
     /**
