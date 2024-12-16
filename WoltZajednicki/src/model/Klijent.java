@@ -64,7 +64,7 @@ public class Klijent extends GenericDomainObject {
 
         while (rs.next()) {
             
-            Mesto m = new Mesto(rs.getInt("mestoID"),
+            Mesto m = new Mesto(rs.getLong("mestoID"),
                     rs.getString("m.naziv"));
             
             Klijent k = new Klijent(rs.getLong("KlijentID"),

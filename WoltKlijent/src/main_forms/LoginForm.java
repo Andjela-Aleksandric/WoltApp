@@ -144,14 +144,14 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel2.setText("Password:");
 
-        txtUsername.setText("aca");
+        txtUsername.setText("andja");
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
             }
         });
 
-        txtPassword.setText("aca123");
+        txtPassword.setText("andja");
 
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLogin.setText("Prijavi se");

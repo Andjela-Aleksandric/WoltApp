@@ -56,7 +56,7 @@ public class AdP extends GenericDomainObject {
                     rs.getString("Ime"), rs.getString("Prezime"),
                     rs.getString("Username"), rs.getString("Password"));
             
-            Pozicija p = new Pozicija(rs.getInt("pozicijaID"),
+            Pozicija p = new Pozicija(rs.getLong("pozicijaID"),
                     rs.getString("p.naziv"));
             
             AdP adp = new AdP(p, a, rs.getDate("datumOd"), rs.getDate("datumDo"));

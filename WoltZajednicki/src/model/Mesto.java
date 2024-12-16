@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Mesto extends GenericDomainObject {
 
-    private int mestoID;
+    private Long mestoID;
     private String naziv;
 
     @Override
@@ -23,7 +23,7 @@ public class Mesto extends GenericDomainObject {
         return naziv;
     }
 
-    public Mesto(int mestoID, String naziv) {
+    public Mesto(Long mestoID, String naziv) {
         this.mestoID = mestoID;
         this.naziv = naziv;
     }
@@ -51,7 +51,7 @@ public class Mesto extends GenericDomainObject {
         ArrayList<GenericDomainObject> lista = new ArrayList<>();
 
         while (rs.next()) {
-            Mesto m = new Mesto(rs.getInt("mestoID"),
+            Mesto m = new Mesto(rs.getLong("mestoID"),
                     rs.getString("m.naziv"));
 
             lista.add(m);
@@ -86,11 +86,11 @@ public class Mesto extends GenericDomainObject {
         return "";
     }
 
-    public int getMestoID() {
+    public Long getMestoID() {
         return mestoID;
     }
 
-    public void setMestoID(int mestoID) {
+    public void setMestoID(Long mestoID) {
         this.mestoID = mestoID;
     }
 
