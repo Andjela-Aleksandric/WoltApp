@@ -340,7 +340,7 @@ public class FormDetaljiKlijenta extends javax.swing.JDialog {
     }//GEN-LAST:event_btnZatvoriActionPerformed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
-
+        customizeOptionPane();
         int result = JOptionPane.showConfirmDialog(this, messages.getString("confirm_delete_client"), messages.getString("confirm_title"), JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.NO_OPTION) {
@@ -363,7 +363,7 @@ public class FormDetaljiKlijenta extends javax.swing.JDialog {
     }//GEN-LAST:event_btnObrisiActionPerformed
 
     private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
-
+        customizeOptionPane();
         try {
 
             if (txtEmail.getText().isEmpty()
@@ -527,6 +527,23 @@ public class FormDetaljiKlijenta extends javax.swing.JDialog {
                     button.setForeground(Color.BLACK);
                 }
             });
+        }
+    }
+    private void customizeOptionPane() {
+        UIManager.put("OptionPane.background", new Color(1, 195, 233));
+        UIManager.put("Panel.background", new Color(1, 195, 233));
+
+        try {
+            InputStream fontStream = getClass().getClassLoader().getResourceAsStream("resources/Roboto-Regular.ttf");
+            if (fontStream != null) {
+                Font robotoFont = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(14f);
+                UIManager.put("OptionPane.messageFont", robotoFont);
+                UIManager.put("OptionPane.buttonFont", robotoFont);
+            } else {
+                System.out.println("Font fajl nije pronađen.");
+            }
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
         }
     }
 

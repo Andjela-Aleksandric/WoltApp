@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Pozicija extends GenericDomainObject {
 
-    private Long pozicijaID;
+    private int pozicijaID;
     private String naziv;
 
     @Override
@@ -23,7 +23,7 @@ public class Pozicija extends GenericDomainObject {
         return naziv;
     }
 
-    public Pozicija(Long pozicijaID, String naziv) {
+    public Pozicija(int pozicijaID, String naziv) {
         this.pozicijaID = pozicijaID;
         this.naziv = naziv;
     }
@@ -51,7 +51,7 @@ public class Pozicija extends GenericDomainObject {
         ArrayList<GenericDomainObject> lista = new ArrayList<>();
 
         while (rs.next()) {
-            Pozicija p = new Pozicija(rs.getLong("pozicijaID"),
+            Pozicija p = new Pozicija(rs.getInt("pozicijaID"),
                     rs.getString("p.naziv"));
 
             lista.add(p);
@@ -86,11 +86,11 @@ public class Pozicija extends GenericDomainObject {
         return "";
     }
 
-    public Long getPozicijaID() {
+    public int getPozicijaID() {
         return pozicijaID;
     }
 
-    public void setPozicijaID(Long pozicijaID) {
+    public void setPozicijaID(int pozicijaID) {
         this.pozicijaID = pozicijaID;
     }
 

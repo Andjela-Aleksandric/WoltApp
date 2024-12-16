@@ -67,7 +67,7 @@ public class Narudzbina extends GenericDomainObject {
                     rs.getString("a.Ime"), rs.getString("a.Prezime"),
                     rs.getString("Username"), rs.getString("Password"));
 
-            Mesto m = new Mesto(rs.getLong("mestoID"),
+            Mesto m = new Mesto(rs.getInt("mestoID"),
                     rs.getString("m.naziv"));
 
             Klijent k = new Klijent(rs.getLong("KlijentID"),

@@ -259,6 +259,7 @@ public class FormNovoJelo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnZatvoriActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        customizeOptionPane();
         try {
             if (txtCena.getText().isEmpty() || txtNaziv.getText().isEmpty()
                     || txtOpis.getText().isEmpty() || txtOpis.getBackground().equals(Color.PINK)
@@ -334,6 +335,24 @@ public class FormNovoJelo extends javax.swing.JDialog {
 
         menuBar.add(languageMenu);
         setJMenuBar(menuBar);
+    }
+    
+    private void customizeOptionPane() {
+        UIManager.put("OptionPane.background", new Color(1, 195, 233));
+        UIManager.put("Panel.background", new Color(1, 195, 233));
+
+        try {
+            InputStream fontStream = getClass().getClassLoader().getResourceAsStream("resources/Roboto-Regular.ttf");
+            if (fontStream != null) {
+                Font robotoFont = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(14f);
+                UIManager.put("OptionPane.messageFont", robotoFont);
+                UIManager.put("OptionPane.buttonFont", robotoFont);
+            } else {
+                System.out.println("Font fajl nije pronađen.");
+            }
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setLanguage(String language, String country) {

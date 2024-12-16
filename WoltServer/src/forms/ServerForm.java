@@ -57,6 +57,7 @@ public class ServerForm extends javax.swing.JFrame {
         Locale.setDefault(new Locale("sr", "LATN"));
         messages = ResourceBundle.getBundle("resources.Messages", Locale.getDefault());
         createLanguageMenu();
+        customizeOptionPane();
         customizeButtons();
     }
 
@@ -123,14 +124,13 @@ public class ServerForm extends javax.swing.JFrame {
                         .addComponent(btnUgasiServer, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnKonfigurisanjeBP, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(151, 151, 151))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblServerStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(178, 178, 178))))))
+                        .addGap(0, 172, Short.MAX_VALUE)
+                        .addComponent(lblServerStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(178, 178, 178))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnKonfigurisanjeBP, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(117, 117, 117))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,6 +173,7 @@ public class ServerForm extends javax.swing.JFrame {
             threadServer = new ServerThread();
             threadServer.start();
             lblServerStatus.setText("Server je pokrenut");
+            //JOptionPane.showMessageDialog(this,"Sistem ne može da zapamti narudžbinu","Greška",JOptionPane.ERROR_MESSAGE);
             btnUgasiServer.setEnabled(true);
             btnPokreniServer.setEnabled(false);
         }

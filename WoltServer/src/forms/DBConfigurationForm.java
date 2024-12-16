@@ -62,6 +62,7 @@ public class DBConfigurationForm extends javax.swing.JDialog {
         messages = ResourceBundle.getBundle("resources.Messages", Locale.getDefault());
         createLanguageMenu();
 
+        customizeOptionPane();
         addDocumentListeners();
         customizeButtons();
     }
