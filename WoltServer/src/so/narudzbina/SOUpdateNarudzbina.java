@@ -20,13 +20,13 @@ public class SOUpdateNarudzbina extends GenericSO {
     @Override
     protected void validate(GenericDomainObject ado) throws Exception {
         if (!(ado instanceof Narudzbina)) {
-            throw new Exception("Prosledjeni objekat nije instanca klase Narudzbina!");
+            throw new Exception("Prosleđeni objekat nije instanca klase Narudžbina!");
         }
 
         Narudzbina narudzbina = (Narudzbina) ado;
 
         if (narudzbina.getStavkeNarudzbine().isEmpty()) {
-            throw new Exception("Narudzbina mora da ima barem jednu stavku!");
+            throw new Exception("Narudžbina mora da ima barem jednu stavku!");
         }
 
     }

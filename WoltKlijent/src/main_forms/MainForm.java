@@ -380,6 +380,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenuKlijent.setText("Klijent");
 
         miNoviKlijent.setText("Novi klijent");
+        miNoviKlijent.setPreferredSize(new java.awt.Dimension(629, 22));
         miNoviKlijent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miNoviKlijentActionPerformed(evt);
@@ -476,7 +477,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(lblUlogovani)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelNarudzbina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();

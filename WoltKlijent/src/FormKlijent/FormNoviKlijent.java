@@ -223,7 +223,7 @@ public class FormNoviKlijent extends javax.swing.JDialog {
 
         lblPrezime.setText("Prezime:");
 
-        txtPrezime.setText("Aleksandric");
+        txtPrezime.setText("Aleksandrić");
         txtPrezime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrezimeActionPerformed(evt);
@@ -260,7 +260,7 @@ public class FormNoviKlijent extends javax.swing.JDialog {
 
         lblMesto.setText("Mesto:");
 
-        txtTelefon.setText("0623721283");
+        txtTelefon.setText("062372128");
 
         txtAdresa.setText("Masarikova 12");
 

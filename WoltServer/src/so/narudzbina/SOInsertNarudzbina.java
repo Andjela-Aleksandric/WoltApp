@@ -38,9 +38,9 @@ public class SOInsertNarudzbina extends GenericSO {
         
         PreparedStatement ps = DBBroker.getInstance().insert(ado);
 
-        ResultSet tableKeys = ps.getGeneratedKeys();
-        tableKeys.next();
-        Long narudzbinaID = tableKeys.getLong(1);
+        ResultSet keys = ps.getGeneratedKeys();
+        keys.next();
+        Long narudzbinaID = keys.getLong(1);
 
         Narudzbina narudzbina = (Narudzbina) ado;
         narudzbina.setNarudzbinaID(narudzbinaID);

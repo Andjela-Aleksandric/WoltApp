@@ -56,7 +56,7 @@ public class ClientHandler extends Thread {
         try {
             socket.close();
         } catch (IOException ex) {
-            System.out.println("Greška pri zatvaranju klijenta");
+            System.out.println("Greška pri zatvaranju soketa klijenta");
         }
         System.out.println("Nit za klijenta broj " + clientNumber + " je zaustavljena.");
     }
