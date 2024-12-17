@@ -22,7 +22,7 @@ public class SOLogin extends GenericSO {
     Administrator ulogovani;
 
     @Override
-    protected void validate(GenericDomainObject ado) throws Exception {
+    protected void verify(GenericDomainObject ado) throws Exception {
         if (!(ado instanceof Administrator)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Administrator!");
         }
@@ -38,7 +38,7 @@ public class SOLogin extends GenericSO {
     }
 
     @Override
-    protected void execute(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject ado) throws Exception {
 
         Administrator a = (Administrator) ado;
 

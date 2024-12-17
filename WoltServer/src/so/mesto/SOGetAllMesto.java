@@ -20,14 +20,14 @@ public class SOGetAllMesto extends GenericSO {
     private ArrayList<Mesto> lista;
 
     @Override
-    protected void validate(GenericDomainObject ado) throws Exception {
+    protected void verify(GenericDomainObject ado) throws Exception {
         if (!(ado instanceof Mesto)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Mesto!");
         }
     }
 
     @Override
-    protected void execute(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject ado) throws Exception {
         ArrayList<GenericDomainObject> mesta = DBBroker.getInstance().select(ado);
         lista = (ArrayList<Mesto>) (ArrayList<?>) mesta;
     }

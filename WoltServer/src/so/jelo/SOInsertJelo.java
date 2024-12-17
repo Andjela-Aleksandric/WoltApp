@@ -17,7 +17,7 @@ import so.GenericSO;
 public class SOInsertJelo extends GenericSO {
 
     @Override
-    protected void validate(GenericDomainObject ado) throws Exception {
+    protected void verify(GenericDomainObject ado) throws Exception {
         if (!(ado instanceof Jelo)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Jelo!");
         }
@@ -38,7 +38,7 @@ public class SOInsertJelo extends GenericSO {
     }
 
     @Override
-    protected void execute(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject ado) throws Exception {
         DBBroker.getInstance().insert(ado);
     }
     

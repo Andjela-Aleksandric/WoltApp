@@ -21,7 +21,7 @@ import so.GenericSO;
 public class SORegister extends GenericSO {
 
     @Override
-    protected void validate(GenericDomainObject ado) throws Exception {
+    protected void verify(GenericDomainObject ado) throws Exception {
         if (!(ado instanceof Administrator)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Administrator!");
         }
@@ -32,13 +32,13 @@ public class SORegister extends GenericSO {
 
         for (Administrator admin : admini) {
             if (admin.getUsername().equals(a.getUsername())) {
-                throw new Exception("Klijent sa tom email adresom već postoji!");
+                throw new Exception("Administrator sa tom email adresom već postoji!");
             }
         }
     }
 
     @Override
-    protected void execute(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject ado) throws Exception {
         Administrator a = (Administrator) ado;
         String hashedPassword = hashPassword(a.getPassword());
         a.setPassword(hashedPassword);

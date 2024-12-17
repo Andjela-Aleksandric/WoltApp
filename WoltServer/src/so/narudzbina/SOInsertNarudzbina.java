@@ -20,7 +20,7 @@ import so.GenericSO;
 public class SOInsertNarudzbina extends GenericSO {
 
     @Override
-    protected void validate(GenericDomainObject ado) throws Exception {
+    protected void verify(GenericDomainObject ado) throws Exception {
         if (!(ado instanceof Narudzbina)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Narudžbina!");
         }
@@ -34,7 +34,7 @@ public class SOInsertNarudzbina extends GenericSO {
     }
 
     @Override
-    protected void execute(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject ado) throws Exception {
         
         PreparedStatement ps = DBBroker.getInstance().insert(ado);
 

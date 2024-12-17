@@ -18,7 +18,7 @@ import so.GenericSO;
 public class SOUpdateNarudzbina extends GenericSO {
 
     @Override
-    protected void validate(GenericDomainObject ado) throws Exception {
+    protected void verify(GenericDomainObject ado) throws Exception {
         if (!(ado instanceof Narudzbina)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Narudžbina!");
         }
@@ -32,7 +32,7 @@ public class SOUpdateNarudzbina extends GenericSO {
     }
 
     @Override
-    protected void execute(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject ado) throws Exception {
         DBBroker.getInstance().update(ado);
         Narudzbina narudzbina = (Narudzbina) ado;
         DBBroker.getInstance().delete(narudzbina.getStavkeNarudzbine().get(0));

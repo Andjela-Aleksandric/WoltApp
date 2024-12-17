@@ -63,54 +63,54 @@ public class ServerController {
     
     public void register(Administrator administrator) throws Exception {
         SORegister so = new SORegister();
-        so.templateExecute(administrator);
+        so.genericOperate(administrator);
     }
 
     public Administrator login(Administrator administrator) throws Exception {
         SOLogin so = new SOLogin();
-        so.templateExecute(administrator);
+        so.genericOperate(administrator);
         return so.getUlogovani();
     }
 
     public void addKlijent(Klijent klijent) throws Exception {
-        (new SOInsertKlijent()).templateExecute(klijent);
+        (new SOInsertKlijent()).genericOperate(klijent);
     }
 
     public void addNarudzbina(Narudzbina narudzbina) throws Exception {
-        (new SOInsertNarudzbina()).templateExecute(narudzbina);
+        (new SOInsertNarudzbina()).genericOperate(narudzbina);
     }
 
     public void addJelo(Jelo jelo) throws Exception {
-        (new SOInsertJelo()).templateExecute(jelo);
+        (new SOInsertJelo()).genericOperate(jelo);
     }
 
     public void deleteKlijent(Klijent klijent) throws Exception {
-        (new SODeleteKlijent()).templateExecute(klijent);
+        (new SODeleteKlijent()).genericOperate(klijent);
     }
 
     public void deleteNarudzbina(Narudzbina narudzbina) throws Exception {
-        (new SODeleteNarudzbina()).templateExecute(narudzbina);
+        (new SODeleteNarudzbina()).genericOperate(narudzbina);
     }
 
     public void deleteJelo(Jelo jelo) throws Exception {
-        (new SODeleteJelo()).templateExecute(jelo);
+        (new SODeleteJelo()).genericOperate(jelo);
     }
 
     public void updateKlijent(Klijent klijent) throws Exception {
-        (new SOUpdateKlijent()).templateExecute(klijent);
+        (new SOUpdateKlijent()).genericOperate(klijent);
     }
 
     public void updateNarudzbina(Narudzbina narudzbina) throws Exception {
-        (new SOUpdateNarudzbina()).templateExecute(narudzbina);
+        (new SOUpdateNarudzbina()).genericOperate(narudzbina);
     }
 
     public void updateJelo(Jelo jelo) throws Exception {
-        (new SOUpdateJelo()).templateExecute(jelo);
+        (new SOUpdateJelo()).genericOperate(jelo);
     }
 
     public ArrayList<Klijent> getAllKlijent() throws Exception {
         SOGetAllKlijent so = new SOGetAllKlijent();
-        so.templateExecute(new Klijent());
+        so.genericOperate(new Klijent());
         return so.getLista();
     }
 
@@ -120,25 +120,25 @@ public class ServerController {
         Narudzbina n = new Narudzbina();
         n.setKlijent(klijent);
         
-        so.templateExecute(n);
+        so.genericOperate(n);
         return so.getLista();
     }
 
     public ArrayList<Jelo> getAllJelo() throws Exception {
         SOGetAllJelo so = new SOGetAllJelo();
-        so.templateExecute(new Jelo());
+        so.genericOperate(new Jelo());
         return so.getLista();
     }
 
     public ArrayList<Mesto> getAllMesto() throws Exception {
         SOGetAllMesto so = new SOGetAllMesto();
-        so.templateExecute(new Mesto());
+        so.genericOperate(new Mesto());
         return so.getLista();
     }
 
     public ArrayList<Pozicija> getAllPozicija() throws Exception {
         SOGetAllPozicija so = new SOGetAllPozicija();
-        so.templateExecute(new Pozicija());
+        so.genericOperate(new Pozicija());
         return so.getLista();
     }
 
@@ -148,7 +148,7 @@ public class ServerController {
         StavkaNarudzbine sn = new StavkaNarudzbine();
         sn.setNarudzbina(narudzbina);
 
-        so.templateExecute(sn);
+        so.genericOperate(sn);
         return so.getLista();
     }
 
@@ -162,7 +162,7 @@ public class ServerController {
         StavkaNarudzbine sn = new StavkaNarudzbine();
         sn.setJelo(jelo);
 
-        so.templateExecute(sn);
+        so.genericOperate(sn);
         return so.getLista();
     }
 

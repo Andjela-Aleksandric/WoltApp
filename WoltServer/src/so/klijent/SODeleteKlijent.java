@@ -17,14 +17,14 @@ import so.GenericSO;
 public class SODeleteKlijent extends GenericSO {
 
     @Override
-    protected void validate(GenericDomainObject ado) throws Exception {
+    protected void verify(GenericDomainObject ado) throws Exception {
         if (!(ado instanceof Klijent)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Klijent!");
         }
     }
 
     @Override
-    protected void execute(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject ado) throws Exception {
         DBBroker.getInstance().delete(ado);
     }
 
