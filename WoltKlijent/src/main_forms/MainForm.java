@@ -9,6 +9,7 @@ import FormKlijent.FormNoviKlijent;
 import FormKlijent.FormPretragaKlijenta;
 import FormJelo.FormNovoJelo;
 import FormJelo.FormPretragaJela;
+import FormNarudzbina.FormNovaNarudzbina;
 import FormNarudzbina.FormPretragaNarudzbine;
 import controller.ClientController;
 import model.Administrator;
@@ -36,6 +37,9 @@ import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -51,7 +55,6 @@ public class MainForm extends javax.swing.JFrame {
 
     private ResourceBundle messages;
     private Administrator ulogovani;
-    private double ukupanIznos;
 
     /**
      * Creates new form MainForm
@@ -60,16 +63,10 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         customizeOptionPane();
         setLocationRelativeTo(null);
-        errorKolicina.setText("");
         this.ulogovani = Communication.getInstance().getUlogovani();
-        popuniJela();
-        popuniKlijente();
-        tblStavke.setModel(new TableModelStavkeNarudzbine());
         lblUlogovani.setText("Ulogovani administrator: " + ulogovani);
         setTitle("Klijentska forma");
         getContentPane().setBackground(new Color(1, 195, 233));
-        txtCenaDostave.setEnabled(false);
-        txtKonacanIznos.setEnabled(false);
 
         setRobotoFont();
         setForeground(Color.WHITE);
@@ -79,10 +76,6 @@ public class MainForm extends javax.swing.JFrame {
 
         Locale.setDefault(new Locale("sr", "LATN"));
         messages = ResourceBundle.getBundle("resources.Messages", Locale.getDefault());
-        createLanguageMenu();
-
-        addDocumentListeners();
-
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -103,44 +96,9 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         });
-        customizeButtons();
-    }
-
-    private void addDocumentListeners() {
-        txtKolicina.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                validateKolicina(errorKolicina, messages.getString("error_qty"));
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                validateKolicina(errorKolicina, messages.getString("error_qty"));
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                validateKolicina(errorKolicina, messages.getString("error_qty"));
-            }
-        });
-    }
-
-    private void validateKolicina(javax.swing.JLabel errorLabel, String errorMessage) {
-        String kolicinaText = txtKolicina.getText().trim();
-
-        if (kolicinaText.isEmpty()) {
-            txtKolicina.setBackground(Color.PINK);
-            errorLabel.setText(errorMessage);
-            errorLabel.setForeground(Color.RED);
-        } else {
-            try {
-                Integer.parseInt(kolicinaText);
-                errorLabel.setText("");
-                txtKolicina.setBackground(Color.WHITE);
-            } catch (NumberFormatException e) {
-                txtKolicina.setBackground(Color.PINK);
-            }
-        }
+        Locale.setDefault(new Locale("sr", "LATN"));
+        messages = ResourceBundle.getBundle("resources.Messages", Locale.getDefault());
+        createLanguageMenu();
     }
 
     /**
@@ -153,27 +111,6 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         lblUlogovani = new javax.swing.JLabel();
-        jPanelNarudzbina = new javax.swing.JPanel();
-        jPanelStavkaNarudzbine = new javax.swing.JPanel();
-        lblJelo = new javax.swing.JLabel();
-        lblKolicina = new javax.swing.JLabel();
-        cmbJelo = new javax.swing.JComboBox();
-        txtKolicina = new javax.swing.JTextField();
-        btnDodajStavku = new javax.swing.JButton();
-        btnObrisiStavku = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblStavke = new javax.swing.JTable();
-        lblNapomena = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtNapomena = new javax.swing.JTextArea();
-        errorKolicina = new javax.swing.JLabel();
-        btnSacuvaj = new javax.swing.JButton();
-        lblKlijent = new javax.swing.JLabel();
-        lblCenaDostave = new javax.swing.JLabel();
-        lblKonacanIznos = new javax.swing.JLabel();
-        cmbKlijent = new javax.swing.JComboBox();
-        txtKonacanIznos = new javax.swing.JTextField();
-        txtCenaDostave = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuKlijent = new javax.swing.JMenu();
         miNoviKlijent = new javax.swing.JMenuItem();
@@ -182,6 +119,7 @@ public class MainForm extends javax.swing.JFrame {
         miNovoJelo = new javax.swing.JMenuItem();
         miPretragaJela = new javax.swing.JMenuItem();
         jMenuNarudzbina = new javax.swing.JMenu();
+        miDodavanjeNarudzbine = new javax.swing.JMenuItem();
         miPretragaNarudzbine = new javax.swing.JMenuItem();
         jMenuOdjava = new javax.swing.JMenu();
         miOdjava = new javax.swing.JMenuItem();
@@ -194,190 +132,10 @@ public class MainForm extends javax.swing.JFrame {
 
         lblUlogovani.setText("Ulogovani");
 
-        jPanelNarudzbina.setBorder(javax.swing.BorderFactory.createTitledBorder("Narudžbina"));
-
-        jPanelStavkaNarudzbine.setBorder(javax.swing.BorderFactory.createTitledBorder("Stavke narudžbine"));
-
-        lblJelo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblJelo.setText("Jelo:");
-
-        lblKolicina.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblKolicina.setText("Količina:");
-
-        cmbJelo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        txtKolicina.setText("5");
-
-        btnDodajStavku.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnDodajStavku.setText("Dodaj stavku");
-        btnDodajStavku.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnDodajStavku.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDodajStavkuActionPerformed(evt);
-            }
-        });
-
-        btnObrisiStavku.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnObrisiStavku.setText("Obriši stavku");
-        btnObrisiStavku.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnObrisiStavku.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnObrisiStavkuActionPerformed(evt);
-            }
-        });
-
-        tblStavke.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblStavke);
-
-        lblNapomena.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblNapomena.setText("Napomena:");
-
-        txtNapomena.setColumns(20);
-        txtNapomena.setRows(5);
-        txtNapomena.setText("Neka napomena.");
-        jScrollPane2.setViewportView(txtNapomena);
-
-        errorKolicina.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
-        errorKolicina.setText("jLabel1");
-
-        javax.swing.GroupLayout jPanelStavkaNarudzbineLayout = new javax.swing.GroupLayout(jPanelStavkaNarudzbine);
-        jPanelStavkaNarudzbine.setLayout(jPanelStavkaNarudzbineLayout);
-        jPanelStavkaNarudzbineLayout.setHorizontalGroup(
-            jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNapomena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblKolicina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblJelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbJelo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
-                        .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(errorKolicina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addComponent(txtKolicina)))
-            .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
-                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
-                        .addComponent(btnDodajStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                        .addComponent(btnObrisiStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
-        );
-        jPanelStavkaNarudzbineLayout.setVerticalGroup(
-            jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJelo)
-                    .addComponent(cmbJelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblKolicina)
-                    .addComponent(txtKolicina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(errorKolicina)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNapomena))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDodajStavku)
-                    .addComponent(btnObrisiStavku))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        btnSacuvaj.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSacuvaj.setText("Sačuvaj narudžbinu");
-        btnSacuvaj.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSacuvajActionPerformed(evt);
-            }
-        });
-
-        lblKlijent.setText("Klijent:");
-
-        lblCenaDostave.setText("Cena dostave:");
-
-        lblKonacanIznos.setText("Konačan iznos:");
-
-        cmbKlijent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbKlijent.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbKlijentItemStateChanged(evt);
-            }
-        });
-
-        txtCenaDostave.setText("500.0din");
-
-        javax.swing.GroupLayout jPanelNarudzbinaLayout = new javax.swing.GroupLayout(jPanelNarudzbina);
-        jPanelNarudzbina.setLayout(jPanelNarudzbinaLayout);
-        jPanelNarudzbinaLayout.setHorizontalGroup(
-            jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblKonacanIznos, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                            .addComponent(lblCenaDostave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblKlijent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbKlijent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCenaDostave)
-                            .addComponent(txtKonacanIznos, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanelStavkaNarudzbine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanelNarudzbinaLayout.setVerticalGroup(
-            jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelStavkaNarudzbine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblKlijent)
-                    .addComponent(cmbKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCenaDostave)
-                    .addComponent(txtCenaDostave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblKonacanIznos)
-                    .addComponent(txtKonacanIznos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jMenuKlijent.setText("Klijent");
 
         miNoviKlijent.setText("Novi klijent");
-        miNoviKlijent.setPreferredSize(new java.awt.Dimension(629, 22));
+        miNoviKlijent.setPreferredSize(new java.awt.Dimension(99, 22));
         miNoviKlijent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miNoviKlijentActionPerformed(evt);
@@ -416,6 +174,14 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1.add(jMenuJelo);
 
         jMenuNarudzbina.setText("Narudžbina");
+
+        miDodavanjeNarudzbine.setText("Dodavanje narudžbine");
+        miDodavanjeNarudzbine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDodavanjeNarudzbineActionPerformed(evt);
+            }
+        });
+        jMenuNarudzbina.add(miDodavanjeNarudzbine);
 
         miPretragaNarudzbine.setText("Pretraga narudžbine");
         miPretragaNarudzbine.addActionListener(new java.awt.event.ActionListener() {
@@ -460,21 +226,15 @@ public class MainForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelNarudzbina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUlogovani)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelNarudzbina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         pack();
@@ -526,130 +286,28 @@ public class MainForm extends javax.swing.JFrame {
         new FormPretragaNarudzbine(this, true).setVisible(true);
     }//GEN-LAST:event_miPretragaNarudzbineActionPerformed
 
-    private void btnDodajStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajStavkuActionPerformed
-        customizeOptionPane();
-        if (txtKolicina.getText().isEmpty() || txtKolicina.getBackground().equals(Color.PINK)) {
-            JOptionPane.showMessageDialog(this, messages.getString("error_emptyQty"), messages.getString("error_title"), JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Jelo jelo = (Jelo) cmbJelo.getSelectedItem();
-        int kolicina = Integer.parseInt(txtKolicina.getText());
-        String napomena = txtNapomena.getText();
-
-        StavkaNarudzbine sn = new StavkaNarudzbine(null, -1, kolicina, jelo.getCena() * kolicina,
-                napomena, jelo);
-        TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
-        tm.dodajStavku(sn);
-
-        ukupanIznos = tm.vratiUkupanIznos();
-        txtKonacanIznos.setText(String.valueOf(ukupanIznos + 500) + "din");
-    }//GEN-LAST:event_btnDodajStavkuActionPerformed
-
-    private void btnObrisiStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiStavkuActionPerformed
-
-        int row = tblStavke.getSelectedRow();
-
-        if (row >= 0) {
-            TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
-            tm.obrisiStavku(row);
-
-            ukupanIznos = tm.vratiUkupanIznos();
-            txtKonacanIznos.setText(String.valueOf(ukupanIznos + 500) + "din");
-        }
-    }//GEN-LAST:event_btnObrisiStavkuActionPerformed
-
-    private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
-        customizeOptionPane();
-        try {
-            Klijent klijent = (Klijent) cmbKlijent.getSelectedItem();
-            double cenaDostave;
-
-            if (klijent.getStatus().equals("FREE")) {
-                cenaDostave = 500;
-            } else {
-                cenaDostave = 0;
-            }
-
-            TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
-            if (tm.getLista().size() == 0) {
-                JOptionPane.showMessageDialog(this, messages.getString("sn_zero"), messages.getString("error_title"), JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            Narudzbina narudzbina = new Narudzbina(null, new Date(), cenaDostave,
-                    ukupanIznos, false, klijent, ulogovani, tm.getLista());
-
-            ClientController.getInstance().addNarudzbina(narudzbina);
-            txtKonacanIznos.setText("");
-            tm.getLista().clear();
-            tm.fireTableDataChanged();
-            JOptionPane.showMessageDialog(this, messages.getString("success_save_order"), messages.getString("success_title"), JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), messages.getString("error_title"), JOptionPane.ERROR_MESSAGE);
-        }
-
-    }//GEN-LAST:event_btnSacuvajActionPerformed
-
-    private void cmbKlijentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbKlijentItemStateChanged
-
-        if (cmbKlijent.getSelectedItem() != null) {
-            Klijent klijent = (Klijent) cmbKlijent.getSelectedItem();
-
-            if (klijent.getStatus().equals("WOLT+")) {
-                txtCenaDostave.setText("Besplatno");
-                TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
-
-                ukupanIznos = tm.vratiUkupanIznos();
-                txtKonacanIznos.setText(String.valueOf(ukupanIznos) + "din");
-
-            } else {
-                txtCenaDostave.setText("500.00din");
-                txtKonacanIznos.setText(String.valueOf(ukupanIznos + 500) + "din");
-            }
-
-        }
-    }//GEN-LAST:event_cmbKlijentItemStateChanged
+    private void miDodavanjeNarudzbineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDodavanjeNarudzbineActionPerformed
+        new FormNovaNarudzbina(this, true).setVisible(true);
+    }//GEN-LAST:event_miDodavanjeNarudzbineActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDodajStavku;
-    private javax.swing.JButton btnObrisiStavku;
-    private javax.swing.JButton btnSacuvaj;
     private javax.swing.JMenuItem cirilicaItem;
-    private javax.swing.JComboBox cmbJelo;
-    private javax.swing.JComboBox cmbKlijent;
     private javax.swing.JMenuItem englishItem;
-    private javax.swing.JLabel errorKolicina;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuJelo;
     private javax.swing.JMenu jMenuKlijent;
     private javax.swing.JMenu jMenuNarudzbina;
     private javax.swing.JMenu jMenuOdjava;
-    private javax.swing.JPanel jPanelNarudzbina;
-    private javax.swing.JPanel jPanelStavkaNarudzbine;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenu languageMenu;
     private javax.swing.JMenuItem latinicaItem;
-    private javax.swing.JLabel lblCenaDostave;
-    private javax.swing.JLabel lblJelo;
-    private javax.swing.JLabel lblKlijent;
-    private javax.swing.JLabel lblKolicina;
-    private javax.swing.JLabel lblKonacanIznos;
-    private javax.swing.JLabel lblNapomena;
     private javax.swing.JLabel lblUlogovani;
+    private javax.swing.JMenuItem miDodavanjeNarudzbine;
     private javax.swing.JMenuItem miNoviKlijent;
     private javax.swing.JMenuItem miNovoJelo;
     private javax.swing.JMenuItem miOdjava;
     private javax.swing.JMenuItem miPretragaJela;
     private javax.swing.JMenuItem miPretragaKlijenta;
     private javax.swing.JMenuItem miPretragaNarudzbine;
-    private javax.swing.JTable tblStavke;
-    private javax.swing.JTextField txtCenaDostave;
-    private javax.swing.JTextField txtKolicina;
-    private javax.swing.JTextField txtKonacanIznos;
-    private javax.swing.JTextArea txtNapomena;
     // End of variables declaration//GEN-END:variables
 
     private void setRobotoFont() {
@@ -684,15 +342,17 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void createLanguageMenu() {
+
         latinicaItem.addActionListener(e -> setLanguage("sr", "Latn"));
         cirilicaItem.addActionListener(e -> setLanguage("sr", "Cyrl"));
         englishItem.addActionListener(e -> setLanguage("en", "US"));
+
     }
 
     private void setLanguage(String language, String country) {
         Locale locale = new Locale(language, country);
         messages = ResourceBundle.getBundle("resources.messages", locale);
-        lblUlogovani.setText(messages.getString("lbl_ulogovani"));
+        lblUlogovani.setText(messages.getString("lbl_ulogovani") + ": " + ulogovani);
         jMenuJelo.setText(messages.getString("jmenu_jelo"));
         jMenuKlijent.setText(messages.getString("jmenu_client"));
         jMenuOdjava.setText(messages.getString("jmenu_logout"));
@@ -703,22 +363,6 @@ public class MainForm extends javax.swing.JFrame {
         miPretragaJela.setText(messages.getString("mi_findD"));
         miPretragaNarudzbine.setText(messages.getString("mi_findO"));
         miOdjava.setText(messages.getString("mi_logout"));
-        TitledBorder border1 = (TitledBorder) jPanelNarudzbina.getBorder();
-        border1.setTitle(messages.getString("jpanel_order"));
-        TitledBorder border2 = (TitledBorder) jPanelStavkaNarudzbine.getBorder();
-        border2.setTitle(messages.getString("jpanel_orderItem"));
-        lblJelo.setText(messages.getString("lbl_jelo"));
-        lblKlijent.setText(messages.getString("lbl_client"));
-        lblKolicina.setText(messages.getString("lbl_quantity"));
-        lblCenaDostave.setText(messages.getString("lbl_deliveryPrice"));
-        lblKonacanIznos.setText(messages.getString("lbl_orderPrice"));
-        lblNapomena.setText(messages.getString("lbl_note"));
-        btnDodajStavku.setText(messages.getString("btn_addOI"));
-        btnObrisiStavku.setText(messages.getString("btn_deleteOI"));
-        btnSacuvaj.setText(messages.getString("btn_save"));
-        TableModelStavkeNarudzbine tmsn2 = (TableModelStavkeNarudzbine) tblStavke.getModel();
-        tmsn2.setLanguage(locale);
-        txtNapomena.setText(messages.getString("note"));
         languageMenu.setText(messages.getString("jmenu"));
         setTitle(messages.getString("title_main"));
         SwingUtilities.updateComponentTreeUI(this);
@@ -742,54 +386,4 @@ public class MainForm extends javax.swing.JFrame {
         }
     }
 
-    private void popuniJela() {
-        try {
-            ArrayList<Jelo> jela = ClientController.getInstance().getAllJelo();
-
-            cmbJelo.removeAllItems();
-
-            for (Jelo jelo : jela) {
-                cmbJelo.addItem(jelo);
-            }
-
-        } catch (Exception ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void popuniKlijente() {
-        try {
-            ArrayList<Klijent> klijenti = ClientController.getInstance().getAllKlijent();
-
-            cmbKlijent.removeAllItems();
-
-            for (Klijent klijent : klijenti) {
-                cmbKlijent.addItem(klijent);
-            }
-
-        } catch (Exception ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void customizeButtons() {
-        Color hoverColor = new Color(0, 165, 200);
-        JButton[] buttons = {btnDodajStavku, btnObrisiStavku, btnSacuvaj};
-
-        for (JButton button : buttons) {
-            button.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    button.setBackground(hoverColor);
-                    button.setForeground(new Color(1, 195, 233));
-                }
-
-                @Override
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                    button.setBackground(UIManager.getColor("control"));
-                    button.setForeground(Color.BLACK);
-                }
-            });
-        }
-    }
 }
