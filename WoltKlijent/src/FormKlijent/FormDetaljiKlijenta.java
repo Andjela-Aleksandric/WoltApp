@@ -32,7 +32,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import main_forms.LoginForm;
-import models.TableModelNarudzbine;
+import tableModels.TableModelNarudzbine;
 
 /**
  *

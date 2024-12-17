@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package tableModels;
 
 import controller.ClientController;
-import model.Jelo;
 import model.Klijent;
-import model.Narudzbina;
-import model.StavkaNarudzbine;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -22,22 +19,22 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Anđela
  */
-public class TableModelNarudzbine extends AbstractTableModel implements Runnable {
+public class TableModelKlijenti extends AbstractTableModel implements Runnable {
 
-    private ArrayList<Narudzbina> lista;
-    private String[] kolone = {"ID", "Klijent", "Konačan iznos"};
+    private ArrayList<Klijent> lista;
+    private String[] kolone;
     private String parametar = "";
     private ResourceBundle messages;
     private JMenu languageMenu;
 
-    public TableModelNarudzbine() {
+    public TableModelKlijenti() {
         try {
             Locale.setDefault(new Locale("sr", "LATN"));
             messages = ResourceBundle.getBundle("resources.Messages", Locale.getDefault());
             setLanguage(new Locale("sr", "LATN")); 
-            lista = ClientController.getInstance().getAllNarudzbina(null);
+            lista = ClientController.getInstance().getAllKlijent();
         } catch (Exception ex) {
-            Logger.getLogger(TableModelNarudzbine.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TableModelKlijenti.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -45,35 +42,15 @@ public class TableModelNarudzbine extends AbstractTableModel implements Runnable
         messages = ResourceBundle.getBundle("resources.Messages", locale);
         kolone = new String[] {
             messages.getString("tbl_id"),
-            messages.getString("tbl_klijent"),
-            messages.getString("tbl_iznos")
+            messages.getString("tbl_ime"),
+            messages.getString("tbl_prezime"),
+            messages.getString("tbl_email"),
+            messages.getString("tbl_telefon"),
+            messages.getString("tbl_adresa"),
+            messages.getString("tbl_status"),
+            messages.getString("tbl_mesto")
         };
         fireTableStructureChanged();
-    }
-
-    public TableModelNarudzbine(Klijent klijent) {
-        try {
-            lista = ClientController.getInstance().getAllNarudzbina(klijent);
-        } catch (Exception ex) {
-            Logger.getLogger(TableModelNarudzbine.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public TableModelNarudzbine(Jelo jelo) {
-        try {
-
-            lista = new ArrayList<>();
-
-            ArrayList<StavkaNarudzbine> stavkeNarudzbineJela
-                    = ClientController.getInstance().getAllStavkaNarudzbineJela(jelo);
-
-            for (StavkaNarudzbine stavkaNarudzbine : stavkeNarudzbineJela) {
-                lista.add(stavkaNarudzbine.getNarudzbina());
-            }
-
-        } catch (Exception ex) {
-            Logger.getLogger(TableModelNarudzbine.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @Override
@@ -93,22 +70,32 @@ public class TableModelNarudzbine extends AbstractTableModel implements Runnable
 
     @Override
     public Object getValueAt(int row, int column) {
-        Narudzbina n = lista.get(row);
+        Klijent k = lista.get(row);
 
         switch (column) {
             case 0:
-                return n.getNarudzbinaID();
+                return k.getKlijentID();
             case 1:
-                return n.getKlijent().getIme() + " " + n.getKlijent().getPrezime();
+                return k.getIme();
             case 2:
-                return n.getKonacnaCena() + "din";
+                return k.getPrezime();
+            case 3:
+                return k.getEmail();
+            case 4:
+                return k.getTelefon();
+            case 5:
+                return k.getAdresa();
+            case 6:
+                return k.getStatus();
+            case 7:
+                return k.getMesto();
 
             default:
                 return null;
         }
     }
 
-    public Narudzbina getSelectedNarudzbina(int row) {
+    public Klijent getSelectedKlijent(int row) {
         return lista.get(row);
     }
 
@@ -120,7 +107,7 @@ public class TableModelNarudzbine extends AbstractTableModel implements Runnable
                 refreshTable();
             }
         } catch (InterruptedException ex) {
-            Logger.getLogger(TableModelNarudzbine.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TableModelKlijenti.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -131,13 +118,13 @@ public class TableModelNarudzbine extends AbstractTableModel implements Runnable
 
     public void refreshTable() {
         try {
-            lista = ClientController.getInstance().getAllNarudzbina(null);
+            lista = ClientController.getInstance().getAllKlijent();
             if (!parametar.equals("")) {
-                ArrayList<Narudzbina> novaLista = new ArrayList<>();
-                for (Narudzbina n : lista) {
-                    if (n.getKlijent().getIme().toLowerCase().contains(parametar.toLowerCase())
-                            || n.getKlijent().getPrezime().toLowerCase().contains(parametar.toLowerCase())) {
-                        novaLista.add(n);
+                ArrayList<Klijent> novaLista = new ArrayList<>();
+                for (Klijent k : lista) {
+                    if (k.getIme().toLowerCase().contains(parametar.toLowerCase())
+                            || k.getPrezime().toLowerCase().contains(parametar.toLowerCase())) {
+                        novaLista.add(k);
                     }
                 }
                 lista = novaLista;

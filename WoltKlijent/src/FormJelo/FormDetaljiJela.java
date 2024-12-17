@@ -25,7 +25,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import main_forms.LoginForm;
-import models.TableModelNarudzbine;
+import tableModels.TableModelNarudzbine;
 
 /**
  *

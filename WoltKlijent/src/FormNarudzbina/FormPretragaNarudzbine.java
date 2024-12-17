@@ -24,8 +24,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import main_forms.LoginForm;
 import model.Narudzbina;
-import models.TableModelNarudzbine;
-import models.TableModelStavkeNarudzbine;
+import tableModels.TableModelNarudzbine;
+import tableModels.TableModelStavkeNarudzbine;
 
 /**
  *

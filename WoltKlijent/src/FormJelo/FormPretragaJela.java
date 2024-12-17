@@ -24,9 +24,9 @@ import javax.swing.event.DocumentListener;
 import main_forms.LoginForm;
 import model.Jelo;
 import model.Klijent;
-import models.TableModelJelo;
-import models.TableModelKlijenti;
-import models.TableModelNarudzbine;
+import tableModels.TableModelJelo;
+import tableModels.TableModelKlijenti;
+import tableModels.TableModelNarudzbine;
 
 /**
  *

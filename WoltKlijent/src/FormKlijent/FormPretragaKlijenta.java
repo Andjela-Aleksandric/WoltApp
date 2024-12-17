@@ -23,8 +23,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import main_forms.LoginForm;
 import model.Klijent;
-import models.TableModelKlijenti;
-import models.TableModelNarudzbine;
+import tableModels.TableModelKlijenti;
+import tableModels.TableModelNarudzbine;
 
 /**
  *
