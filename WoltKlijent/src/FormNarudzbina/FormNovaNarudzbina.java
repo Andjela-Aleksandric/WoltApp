@@ -13,6 +13,8 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -64,7 +66,6 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         errorKolicina.setText("");
         this.ulogovani = Communication.getInstance().getUlogovani();
         popuniJela();
-        //popuniKlijente();
         tblStavke.setModel(new TableModelStavkeNarudzbine());
         setTitle("Klijentska forma");
         getContentPane().setBackground(new Color(1, 195, 233));
@@ -84,6 +85,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
 
         addDocumentListeners();
         customizeButtons();
+        generateCsvFromDatabase();
     }
 
     private void addDocumentListeners() {
@@ -125,6 +127,49 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
             } catch (NumberFormatException e) {
                 txtKolicina.setBackground(Color.PINK);
             }
+        }
+    }
+
+    public void generateCsvFromDatabase() {
+        ArrayList<Jelo> jela = new ArrayList<>();
+        try {
+            jela = ClientController.getInstance().getAllJelo();
+        } catch (Exception ex) {
+            Logger.getLogger(FormNovaNarudzbina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String putanja = "../resources/jela.csv"; 
+        writeJelaToCsv(jela, putanja);
+    }
+    
+    public void writeJelaToCsv(ArrayList<Jelo> jela, String putanja) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(putanja))) {
+        writer.write("ID,Naziv,Cena,Opis");  
+        writer.newLine();
+
+        for (Jelo jelo : jela) {
+            writer.write(jelo.getJeloID() + "," + jelo.getNaziv() + "," + jelo.getCena() + "," + jelo.getOpis());
+            writer.newLine();
+        }
+
+        System.out.println("CSV fajl uspešno kreiran.");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+    private void popuniJela() {
+        try {
+            ArrayList<Jelo> jela = ClientController.getInstance().getAllJelo();
+
+            cmbJelo.removeAllItems();
+
+            for (Jelo jelo : jela) {
+                cmbJelo.addItem(jelo);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -407,7 +452,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         String napomena = txtNapomena.getText();
 
         StavkaNarudzbine sn = new StavkaNarudzbine(null, -1, kolicina, jelo.getCena() * kolicina,
-            napomena, jelo);
+                napomena, jelo);
         TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
         tm.dodajStavku(sn);
 
@@ -452,7 +497,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
             }
 
             Narudzbina narudzbina = new Narudzbina(null, new Date(), cenaDostave,
-                ukupanIznos, false, izabraniKlijent, ulogovani, tm.getLista());
+                    ukupanIznos, false, izabraniKlijent, ulogovani, tm.getLista());
 
             ClientController.getInstance().addNarudzbina(narudzbina);
             txtKonacanIznos.setText("");
@@ -570,21 +615,6 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         }
     }
 
-    private void popuniJela() {
-        try {
-            ArrayList<Jelo> jela = ClientController.getInstance().getAllJelo();
-
-            cmbJelo.removeAllItems();
-
-            for (Jelo jelo : jela) {
-                cmbJelo.addItem(jelo);
-            }
-
-        } catch (Exception ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     public Klijent getIzabraniKlijent() {
         return izabraniKlijent;
     }
@@ -604,20 +634,6 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         }
     }
 
-//    private void popuniKlijente() {
-//        try {
-//            ArrayList<Klijent> klijenti = ClientController.getInstance().getAllKlijent();
-//
-//            cmbKlijent.removeAllItems();
-//
-//            for (Klijent klijent : klijenti) {
-//                cmbKlijent.addItem(klijent);
-//            }
-//
-//        } catch (Exception ex) {
-//            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
     private void customizeButtons() {
         Color hoverColor = new Color(0, 165, 200);
         JButton[] buttons = {btnDodajStavku, btnObrisiStavku, btnSacuvaj, btnIzaberiKlijenta, btnUnesiNovogKlijenta};

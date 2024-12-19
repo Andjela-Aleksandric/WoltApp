@@ -136,7 +136,6 @@ public class ClientController {
             sendRequest(Operation.REGISTER, adminForRegistration);
             List<Administrator> admini = getAllAdmini();
             Long id = admini.get(admini.size()-1).getAdministratorID();
-            System.out.println(id);
             adminForRegistration.setAdministratorID(id);
             List<Pozicija> pozicije = getAllPozicija();
             Pozicija pozicija = null;

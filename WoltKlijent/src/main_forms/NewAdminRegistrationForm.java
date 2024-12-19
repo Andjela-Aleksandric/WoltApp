@@ -397,18 +397,26 @@ public class NewAdminRegistrationForm extends javax.swing.JDialog {
                 return;
             }
 
-            if (jDateDatumDo.getDate() != null && jDateDatumDo.getDate().before(jDateDatumOd.getDate())) {
+            if (jDateDatumDo.getDate() == null) {
                 JOptionPane.showMessageDialog(this, messages.getString("error_dateDo"),
                         messages.getString("error_title"),
                         JOptionPane.ERROR_MESSAGE);
                 return;
+            } else {
+                if (jDateDatumDo.getDate().before(jDateDatumOd.getDate())) {
+                    JOptionPane.showMessageDialog(this, messages.getString("error_date"),
+                            messages.getString("error_title"),
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
             }
 
             if (txtUsername.getText() == null || txtUsername.getText().isEmpty() || txtPassword.getPassword() == null || String.valueOf(txtPassword.getPassword()).isEmpty()
                     || txtIme.getText() == null || txtIme.getText().isEmpty() || txtIPrezime.getText() == null || txtIPrezime.getText().isEmpty()
                     || txtIme.getBackground().equals(Color.PINK) || txtIPrezime.getBackground().equals(Color.PINK) || txtPassword.getBackground().equals(Color.PINK)
                     || txtUsername.getBackground().equals(Color.PINK) || txtPotvrdiPassword.getPassword() == null || txtPotvrdiPassword.getBackground().equals(Color.PINK)
-                    || jDateDatumOd.getDate() == null) {
+                    || jDateDatumOd.getDate() == null || jDateDatumDo.getDate() == null) {
                 JOptionPane.showMessageDialog(this, messages.getString("error_empty_loginField"),
                         messages.getString("error_title"),
                         JOptionPane.ERROR_MESSAGE);

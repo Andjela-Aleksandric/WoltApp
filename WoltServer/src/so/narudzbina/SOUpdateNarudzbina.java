@@ -39,11 +39,7 @@ public class SOUpdateNarudzbina extends GenericSO {
     protected void operate(GenericDomainObject ado) throws Exception {
         DBBroker.getInstance().update(ado);
         Narudzbina narudzbina = (Narudzbina) ado;
-//        DBBroker.getInstance().delete(narudzbina.getStavkeNarudzbine().get(0));
-//        for (StavkaNarudzbine stavkaNarudzbine : narudzbina.getStavkeNarudzbine()) {
-//            DBBroker.getInstance().insert(stavkaNarudzbine);
-//        }
-        // Postojece stavke narudzbine u bazi
+        // Postojeće stavke narudžbine u bazi
         List<StavkaNarudzbine> trenutneStavke = ServerController.getInstance().getAllStavkaNarudzbine(narudzbina);
 
         // Novi skup stavki iz klijenta
@@ -55,9 +51,9 @@ public class SOUpdateNarudzbina extends GenericSO {
         Map<Integer, StavkaNarudzbine> noveStavkeMap = noveStavke.stream()
                 .collect(Collectors.toMap(StavkaNarudzbine::getRb, stavka -> stavka));
 
-        // Pronađi stavke za dodavanje i ažuriranje
+        // Pronalaženje stavke za dodavanje i ažuriranje
         for (StavkaNarudzbine novaStavka : noveStavke) {
-            StavkaNarudzbine trenutnaStavka = trenutneStavkeMap.get(novaStavka.getRb());
+            StavkaNarudzbine trenutnaStavka = trenutneStavkeMap.get(novaStavka.getRb()); 
 
             if (trenutnaStavka == null) {
                 // Nova stavka - Dodaj u bazu
@@ -71,7 +67,7 @@ public class SOUpdateNarudzbina extends GenericSO {
         // Pronađi stavke za brisanje
         for (StavkaNarudzbine trenutnaStavka : trenutneStavke) {
             if (!noveStavkeMap.containsKey(trenutnaStavka.getRb())) {
-                // Stavka više ne postoji u novim podacima - Obrisi iz baze
+                // Stavka više ne postoji u novim podacima - Obriši iz baze
                 DBBroker.getInstance().delete(trenutnaStavka);
             }
         }
