@@ -90,7 +90,6 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
         tblNarudzbine = new javax.swing.JTable();
         txtPretraga = new javax.swing.JTextField();
         btnDetalji = new javax.swing.JButton();
-        btnPretrazi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,15 +117,6 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
             }
         });
 
-        btnPretrazi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPretrazi.setText("Pretraži");
-        btnPretrazi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPretraziActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,11 +134,8 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
                         .addComponent(btnDetalji, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPretrazi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblImePrezimeKl, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(631, 631, 631)))))
+                        .addComponent(lblImePrezimeKl, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(631, 631, 631)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -158,10 +145,8 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblImePrezimeKl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPretrazi)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDetalji)
                 .addGap(18, 18, 18))
@@ -181,15 +166,8 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnDetaljiActionPerformed
 
-    private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
-        String param = txtPretraga.getText();
-        TableModelNarudzbine tm = (TableModelNarudzbine) tblNarudzbine.getModel();
-        tm.setParametar(param);
-    }//GEN-LAST:event_btnPretraziActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetalji;
-    private javax.swing.JButton btnPretrazi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImePrezimeKl;
     private javax.swing.JTable tblNarudzbine;
@@ -256,7 +234,6 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
         Locale locale = new Locale(language, country);
         messages = ResourceBundle.getBundle("resources.messages", locale);
         lblImePrezimeKl.setText(messages.getString("client_nameSearch"));
-        btnPretrazi.setText(messages.getString("btn_search"));
         btnDetalji.setText(messages.getString("btn_orderDetails"));
         TableModelNarudzbine tmn2 = (TableModelNarudzbine) tblNarudzbine.getModel();
         tmn2.setLanguage(locale);
@@ -266,7 +243,7 @@ public class FormPretragaNarudzbine extends javax.swing.JDialog {
 
     private void customizeButtons() {
         Color hoverColor = new Color(0, 165, 200);
-        JButton[] buttons = {btnDetalji, btnPretrazi};
+        JButton[] buttons = {btnDetalji};
 
         for (JButton button : buttons) {
             button.addMouseListener(new java.awt.event.MouseAdapter() {

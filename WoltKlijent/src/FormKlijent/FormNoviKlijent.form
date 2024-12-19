@@ -67,21 +67,21 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtIme" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblIme" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="errorIme" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblPrezime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPrezime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrezime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="errorPrezime" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -100,24 +100,24 @@
                   <Component id="txtAdresa" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblAdresa" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="errorAdresa" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cmbStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblMesto" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbMesto" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cmbMesto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblMesto" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnZatvori" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDodaj" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnZatvori" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnDodaj" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -129,9 +129,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtIme">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Andrija"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPrezime">
       <Properties>
@@ -139,9 +136,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrezime">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Aleksandri&#x107;"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPrezimeActionPerformed"/>
       </Events>
@@ -189,9 +183,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmail">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="andrija@gmail.com"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAdresa">
       <Properties>
@@ -209,14 +200,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTelefon">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="062372128"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtAdresa">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Masarikova 12"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbStatus">
       <Properties>

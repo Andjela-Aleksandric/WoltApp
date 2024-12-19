@@ -173,7 +173,6 @@ public class ServerForm extends javax.swing.JFrame {
             threadServer = new ServerThread();
             threadServer.start();
             lblServerStatus.setText("Server je pokrenut");
-            //JOptionPane.showMessageDialog(this,"Sistem ne može da zapamti narudžbinu","Greška",JOptionPane.ERROR_MESSAGE);
             btnUgasiServer.setEnabled(true);
             btnPokreniServer.setEnabled(false);
         }

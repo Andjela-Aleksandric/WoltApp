@@ -90,7 +90,6 @@ public class FormPretragaJela extends javax.swing.JDialog {
 
         lblPretraga = new javax.swing.JLabel();
         txtPretraga = new javax.swing.JTextField();
-        jButtonPretrazi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblJelo = new javax.swing.JTable();
         btnDetalji = new javax.swing.JButton();
@@ -98,15 +97,6 @@ public class FormPretragaJela extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblPretraga.setText("Pretraga (naziv jela):");
-
-        jButtonPretrazi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButtonPretrazi.setText("Pretraži");
-        jButtonPretrazi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonPretrazi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPretraziActionPerformed(evt);
-            }
-        });
 
         tblJelo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,18 +125,13 @@ public class FormPretragaJela extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblPretraga, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPretraga, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
             .addGroup(layout.createSequentialGroup()
                 .addGap(314, 314, 314)
@@ -160,10 +145,8 @@ public class FormPretragaJela extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPretraga)
                     .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonPretrazi)
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDetalji)
                 .addContainerGap(36, Short.MAX_VALUE))
@@ -180,12 +163,6 @@ public class FormPretragaJela extends javax.swing.JDialog {
             new FormDetaljiJela(this, true, j).setVisible(true);
         }
     }//GEN-LAST:event_btnDetaljiActionPerformed
-
-    private void jButtonPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPretraziActionPerformed
-        String param = txtPretraga.getText();
-        TableModelJelo tm = (TableModelJelo) tblJelo.getModel();
-        tm.setParametar(param);
-    }//GEN-LAST:event_jButtonPretraziActionPerformed
 
     void refreshTable() {
         TableModelJelo tm = (TableModelJelo) tblJelo.getModel();
@@ -248,7 +225,6 @@ public class FormPretragaJela extends javax.swing.JDialog {
         messages = ResourceBundle.getBundle("resources.messages", locale);
         lblPretraga.setText(messages.getString("lbl_dishSearch"));
         btnDetalji.setText(messages.getString("btn_dishDetails"));
-        jButtonPretrazi.setText(messages.getString("btn_search"));
         languageMenu.setText(messages.getString("jmenu"));
         setTitle(messages.getString("title_dishSearch"));
         TableModelJelo tm = (TableModelJelo) tblJelo.getModel();
@@ -278,7 +254,6 @@ public class FormPretragaJela extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetalji;
-    private javax.swing.JButton jButtonPretrazi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPretraga;
     private javax.swing.JTable tblJelo;

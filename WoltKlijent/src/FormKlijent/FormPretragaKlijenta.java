@@ -87,7 +87,6 @@ public class FormPretragaKlijenta extends javax.swing.JDialog {
         tblKlijenti = new javax.swing.JTable();
         txtPretraga = new javax.swing.JTextField();
         btnDetalji = new javax.swing.JButton();
-        btnPretrazi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -115,32 +114,18 @@ public class FormPretragaKlijenta extends javax.swing.JDialog {
             }
         });
 
-        btnPretrazi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPretrazi.setText("Pretraži");
-        btnPretrazi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPretraziActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblImePrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPretraga)))))
+                        .addComponent(lblImePrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPretraga)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(313, 313, 313)
@@ -154,10 +139,8 @@ public class FormPretragaKlijenta extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblImePrezime))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPretrazi)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDetalji)
                 .addGap(21, 21, 21))
@@ -177,15 +160,8 @@ public class FormPretragaKlijenta extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnDetaljiActionPerformed
 
-    private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
-        String param = txtPretraga.getText();
-        TableModelKlijenti tm = (TableModelKlijenti) tblKlijenti.getModel();
-        tm.setParametar(param);
-    }//GEN-LAST:event_btnPretraziActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetalji;
-    private javax.swing.JButton btnPretrazi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImePrezime;
     private javax.swing.JTable tblKlijenti;
@@ -252,7 +228,6 @@ public class FormPretragaKlijenta extends javax.swing.JDialog {
         Locale locale = new Locale(language, country);
         messages = ResourceBundle.getBundle("resources.messages", locale);
         lblImePrezime.setText(messages.getString("client_nameSearch"));
-        btnPretrazi.setText(messages.getString("btn_search"));
         btnDetalji.setText(messages.getString("btn_clientDetails"));
         languageMenu.setText(messages.getString("jmenu"));
         TableModelKlijenti tmk2 = (TableModelKlijenti) tblKlijenti.getModel();
@@ -263,7 +238,7 @@ public class FormPretragaKlijenta extends javax.swing.JDialog {
 
     private void customizeButtons() {
         Color hoverColor = new Color(0, 165, 200);
-        JButton[] buttons = {btnDetalji, btnPretrazi};
+        JButton[] buttons = {btnDetalji};
 
         for (JButton button : buttons) {
             button.addMouseListener(new java.awt.event.MouseAdapter() {

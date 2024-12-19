@@ -94,6 +94,8 @@ public class MainForm extends javax.swing.JFrame {
                 if (response == JOptionPane.YES_OPTION) {
                     try {
                         ClientController.getInstance().logout(ulogovani);
+                        System.out.println("Klijent uspešno odjavljen");
+                        new LoginForm().setVisible(true);
                         System.exit(0);
                     } catch (Exception ex) {
                         Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
