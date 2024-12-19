@@ -5,7 +5,11 @@
  */
 package so.narudzbina;
 
+import controller.ServerController;
 import db.DBBroker;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import model.GenericDomainObject;
 import model.Narudzbina;
 import model.StavkaNarudzbine;
@@ -35,9 +39,41 @@ public class SOUpdateNarudzbina extends GenericSO {
     protected void operate(GenericDomainObject ado) throws Exception {
         DBBroker.getInstance().update(ado);
         Narudzbina narudzbina = (Narudzbina) ado;
-        DBBroker.getInstance().delete(narudzbina.getStavkeNarudzbine().get(0));
-        for (StavkaNarudzbine stavkaNarudzbine : narudzbina.getStavkeNarudzbine()) {
-            DBBroker.getInstance().insert(stavkaNarudzbine);
+//        DBBroker.getInstance().delete(narudzbina.getStavkeNarudzbine().get(0));
+//        for (StavkaNarudzbine stavkaNarudzbine : narudzbina.getStavkeNarudzbine()) {
+//            DBBroker.getInstance().insert(stavkaNarudzbine);
+//        }
+        // Postojece stavke narudzbine u bazi
+        List<StavkaNarudzbine> trenutneStavke = ServerController.getInstance().getAllStavkaNarudzbine(narudzbina);
+
+        // Novi skup stavki iz klijenta
+        List<StavkaNarudzbine> noveStavke = narudzbina.getStavkeNarudzbine();
+
+        // Mape za brže poređenje
+        Map<Integer, StavkaNarudzbine> trenutneStavkeMap = trenutneStavke.stream()
+                .collect(Collectors.toMap(StavkaNarudzbine::getRb, stavka -> stavka));
+        Map<Integer, StavkaNarudzbine> noveStavkeMap = noveStavke.stream()
+                .collect(Collectors.toMap(StavkaNarudzbine::getRb, stavka -> stavka));
+
+        // Pronađi stavke za dodavanje i ažuriranje
+        for (StavkaNarudzbine novaStavka : noveStavke) {
+            StavkaNarudzbine trenutnaStavka = trenutneStavkeMap.get(novaStavka.getRb());
+
+            if (trenutnaStavka == null) {
+                // Nova stavka - Dodaj u bazu
+                DBBroker.getInstance().insert(novaStavka);
+            } else if (!novaStavka.equals(trenutnaStavka)) {
+                // Postojeća stavka je promenjena - Ažuriraj u bazi
+                DBBroker.getInstance().update(novaStavka);
+            }
+        }
+
+        // Pronađi stavke za brisanje
+        for (StavkaNarudzbine trenutnaStavka : trenutneStavke) {
+            if (!noveStavkeMap.containsKey(trenutnaStavka.getRb())) {
+                // Stavka više ne postoji u novim podacima - Obrisi iz baze
+                DBBroker.getInstance().delete(trenutnaStavka);
+            }
         }
     }
 

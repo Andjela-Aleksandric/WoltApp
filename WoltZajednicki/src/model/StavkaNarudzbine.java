@@ -104,12 +104,13 @@ public class StavkaNarudzbine extends GenericDomainObject {
 
     @Override
     public String valuesForUpdate() {
-        return "";
+        return " kolicina = '" + kolicina + "', napomena = '" + napomena + "', "
+                + "cena = '" + cena + "', jeloID = '" + jelo.getJeloID() + "' ";
     }
 
     @Override
     public String condition() {
-        return " narudzbinaID = " + narudzbina.getNarudzbinaID();
+        return " narudzbinaID = " + narudzbina.getNarudzbinaID() + " and rb = " + rb;
     }
 
     @Override
