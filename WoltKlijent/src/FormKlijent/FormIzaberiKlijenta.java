@@ -280,12 +280,12 @@ public class FormIzaberiKlijenta extends javax.swing.JDialog {
         Locale locale = new Locale(language, country);
         messages = ResourceBundle.getBundle("resources.messages", locale);
         lblImePrezime.setText(messages.getString("client_nameSearch"));
-        btnPretrazi.setText(messages.getString("btn_search"));
+        btnPretrazi.setText(messages.getString("btn_pretraga"));
         btnDetalji.setText(messages.getString("btn_clientDetails"));
+        btnIzaberiKlijenta.setText(messages.getString("btn_izaberiKl"));
         languageMenu.setText(messages.getString("jmenu"));
         TableModelKlijenti tmk2 = (TableModelKlijenti) tblKlijenti.getModel();
         tmk2.setLanguage(locale);
-        btnPretrazi.setText(messages.getString("btn_izaberiKl"));
         setTitle(messages.getString("title_izaberiKl"));
         SwingUtilities.updateComponentTreeUI(this);
     }

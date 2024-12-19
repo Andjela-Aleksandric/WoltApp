@@ -381,6 +381,7 @@ public class MainForm extends javax.swing.JFrame {
         miNovoJelo.setText(messages.getString("mi_newD"));
         miPretragaJela.setText(messages.getString("mi_findD"));
         miPretragaNarudzbine.setText(messages.getString("mi_findO"));
+        miDodavanjeNarudzbine.setText(messages.getString("mi_addO"));
         miOdjava.setText(messages.getString("mi_logout"));
         languageMenu.setText(messages.getString("jmenu"));
         setTitle(messages.getString("title_main"));

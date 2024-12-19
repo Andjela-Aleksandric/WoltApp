@@ -179,10 +179,11 @@ public class StavkaNarudzbine extends GenericDomainObject {
         }
         StavkaNarudzbine that = (StavkaNarudzbine) obj;
         return rb == that.rb
+                && Objects.equals(narudzbina.getNarudzbinaID(), that.narudzbina.getNarudzbinaID()) 
                 && Double.compare(that.cena, cena) == 0
                 && kolicina == that.kolicina
                 && Objects.equals(napomena, that.napomena)
-                && Objects.equals(jelo, that.jelo);
+                && Objects.equals(jelo.getJeloID(), that.jelo.getJeloID());
     }
 
     @Override

@@ -85,7 +85,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
 
         addDocumentListeners();
         customizeButtons();
-        generateCsvFromDatabase();
+
     }
 
     private void addDocumentListeners() {
@@ -130,34 +130,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         }
     }
 
-    public void generateCsvFromDatabase() {
-        ArrayList<Jelo> jela = new ArrayList<>();
-        try {
-            jela = ClientController.getInstance().getAllJelo();
-        } catch (Exception ex) {
-            Logger.getLogger(FormNovaNarudzbina.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        String putanja = "../resources/jela.csv"; 
-        writeJelaToCsv(jela, putanja);
-    }
     
-    public void writeJelaToCsv(ArrayList<Jelo> jela, String putanja) {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(putanja))) {
-        writer.write("ID,Naziv,Cena,Opis");  
-        writer.newLine();
-
-        for (Jelo jelo : jela) {
-            writer.write(jelo.getJeloID() + "," + jelo.getNaziv() + "," + jelo.getCena() + "," + jelo.getOpis());
-            writer.newLine();
-        }
-
-        System.out.println("CSV fajl uspešno kreiran.");
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-
     private void popuniJela() {
         try {
             ArrayList<Jelo> jela = ClientController.getInstance().getAllJelo();
