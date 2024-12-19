@@ -8,13 +8,14 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
  * @author Anđela
  */
 public class StavkaNarudzbine extends GenericDomainObject {
-    
+
     private Narudzbina narudzbina;
     private int rb;
     private int kolicina;
@@ -167,6 +168,29 @@ public class StavkaNarudzbine extends GenericDomainObject {
         this.jelo = jelo;
     }
 
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        StavkaNarudzbine that = (StavkaNarudzbine) obj;
+        return rb == that.rb
+                && Double.compare(that.cena, cena) == 0
+                && kolicina == that.kolicina
+                && Objects.equals(napomena, that.napomena)
+                && Objects.equals(jelo, that.jelo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rb, kolicina, cena, napomena, jelo);
+    }
+
+    public String getPrimaryKey() {
+        return "rb=" + rb + ", narudzbinaID=" + narudzbina.getNarudzbinaID();
+    }
 
 }

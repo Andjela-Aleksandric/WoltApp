@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PC/Desktop/Faks/PS/Wolt/Wolt%20dostava/WoltKlijent/src/main_forms/NewAdminRegistrationForm.java</file>
-            <file>file:/C:/Users/PC/Desktop/Faks/PS/Wolt/Wolt%20dostava/WoltKlijent/src/controller/ClientController.java</file>
-            <file>file:/C:/Users/PC/Desktop/Faks/PS/Wolt/Wolt%20dostava/WoltKlijent/src/main_forms/MainForm.java</file>
-            <file>file:/C:/Users/PC/Desktop/Faks/PS/Wolt/Wolt%20dostava/WoltKlijent/src/main_forms/LoginForm.java</file>
+            <file>file:/C:/Users/PC/Desktop/Faks/PS/Wolt/Wolt%20dostava/WoltKlijent/src/tableModels/TableModelStavkeNarudzbine.java</file>
+            <file>file:/C:/Users/PC/Desktop/Faks/PS/Wolt/Wolt%20dostava/WoltKlijent/src/FormNarudzbina/FormNovaNarudzbina.java</file>
+            <file>file:/C:/Users/PC/Desktop/Faks/PS/Wolt/Wolt%20dostava/WoltKlijent/src/FormNarudzbina/FormDetaljiNarudzbine.java</file>
         </group>
     </open-files>
 </project-private>

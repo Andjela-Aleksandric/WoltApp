@@ -24,38 +24,43 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblIme" min="-2" pref="95" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="lblUsername" pref="95" max="32767" attributes="0"/>
-                                  <Component id="lblPass" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="lblPrezime" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
-                          </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="lblPotvrdiPass" pref="106" max="32767" attributes="0"/>
+                          <Component id="lblPrezime" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblIme" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblUsername" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblPass" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblPozicija" max="32767" attributes="0"/>
+                          <Component id="lblDatumOd" max="32767" attributes="0"/>
+                          <Component id="lblDatumDo" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="errorPrezime" max="32767" attributes="0"/>
-                          <Component id="txtPassword" max="32767" attributes="0"/>
+                          <Component id="txtPassword" pref="420" max="32767" attributes="0"/>
                           <Component id="errorUsername" alignment="0" max="32767" attributes="0"/>
                           <Component id="errorPassword" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtUsername" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtIme" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtIPrezime" max="32767" attributes="0"/>
                           <Component id="errorIme" alignment="0" max="32767" attributes="0"/>
+                          <Component id="errorPotvrdiPassword" max="32767" attributes="0"/>
+                          <Component id="txtPotvrdiPassword" max="32767" attributes="0"/>
+                          <Component id="cmbPozicija" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jDateDatumOd" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jDateDatumDo" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="btnOtkazi" min="-2" pref="150" max="-2" attributes="0"/>
-                      <EmptySpace pref="211" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnRegistruj" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,18 +89,42 @@
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Component id="errorUsername" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblPass" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtPassword" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPass" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Component id="errorPassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblPotvrdiPass" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPotvrdiPassword" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="errorPotvrdiPassword" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cmbPozicija" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblPozicija" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="jDateDatumOd" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="lblDatumOd" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblDatumDo" min="-2" max="-2" attributes="0"/>
+                  <Component id="jDateDatumDo" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="33" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnOtkazi" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRegistruj" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="77" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -194,6 +223,57 @@
           <Font name="Segoe UI" size="8" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblPotvrdiPass">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Potvrdi lozinku:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="txtPotvrdiPassword">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPotvrdiPasswordActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="errorPotvrdiPassword">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="8" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbPozicija">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Sistem administrator"/>
+            <StringItem index="1" value="Tehni&#x10d;ka podr&#x161;ka aplikacije"/>
+            <StringItem index="2" value="Menad&#x17e;er podr&#x161;ke"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblPozicija">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pozicija:"/>
+      </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="jDateDatumDo">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="jDateDatumOd">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDatumOd">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datum od:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDatumDo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datum do:"/>
       </Properties>
     </Component>
   </SubComponents>

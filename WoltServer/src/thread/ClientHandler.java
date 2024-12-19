@@ -6,6 +6,7 @@
 package thread;
 
 import controller.ServerController;
+import db.DBBroker;
 import java.io.EOFException;
 import model.Administrator;
 import model.Jelo;
@@ -18,6 +19,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.AdP;
+import model.StavkaNarudzbine;
 import transport.Request;
 import transport.Response;
 import transport.ResponseStatus;
@@ -60,7 +63,7 @@ public class ClientHandler extends Thread {
         }
         System.out.println("Nit za klijenta broj " + clientNumber + " je zaustavljena.");
     }
-    
+
     public Request receiveRequest() {
         try {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
@@ -92,7 +95,6 @@ public class ClientHandler extends Thread {
         }
     }
 
-
     private Response handleRequest(Request request) {
         Response response = new Response(null, null, ResponseStatus.Success);
         try {
@@ -100,11 +102,17 @@ public class ClientHandler extends Thread {
                 case Operation.ADD_KLIJENT:
                     ServerController.getInstance().addKlijent((Klijent) request.getData());
                     break;
+                case Operation.ADD_ADP:
+                    ServerController.getInstance().addAdP((AdP) request.getData());
+                    break;
                 case Operation.ADD_JELO:
                     ServerController.getInstance().addJelo((Jelo) request.getData());
                     break;
                 case Operation.ADD_NARUDZBINA:
                     ServerController.getInstance().addNarudzbina((Narudzbina) request.getData());
+                    break;
+                case Operation.ADD_STAVKA_NARUDZBINE:
+                    ServerController.getInstance().addStavkaNarudzbine((StavkaNarudzbine) request.getData());
                     break;
                 case Operation.DELETE_KLIJENT:
                     ServerController.getInstance().deleteKlijent((Klijent) request.getData());
@@ -115,6 +123,9 @@ public class ClientHandler extends Thread {
                 case Operation.DELETE_NARUDZBINA:
                     ServerController.getInstance().deleteNarudzbina((Narudzbina) request.getData());
                     break;
+                case Operation.DELETE_STAVKA_NARUDZBINE:
+                    ServerController.getInstance().deleteStavkaNarudzbine((StavkaNarudzbine) request.getData());
+                    break;
                 case Operation.UPDATE_KLIJENT:
                     ServerController.getInstance().updateKlijent((Klijent) request.getData());
                     break;
@@ -123,6 +134,9 @@ public class ClientHandler extends Thread {
                     break;
                 case Operation.UPDATE_NARUDZBINA:
                     ServerController.getInstance().updateNarudzbina((Narudzbina) request.getData());
+                    break;
+                case Operation.UPDATE_STAVKA_NARUDZBINE:
+                    ServerController.getInstance().updateStavkaNarudzbine((StavkaNarudzbine) request.getData());
                     break;
                 case Operation.GET_ALL_JELO:
                     response.setData(ServerController.getInstance().getAllJelo());
@@ -135,6 +149,9 @@ public class ClientHandler extends Thread {
                     break;
                 case Operation.GET_ALL_NARUDZBINA:
                     response.setData(ServerController.getInstance().getAllNarudzbina((Klijent) request.getData()));
+                    break;
+                case Operation.GET_ALL_ADMINISTRATOR:
+                    response.setData(ServerController.getInstance().getAllAdministrator());
                     break;
                 case Operation.GET_ALL_POZICIJA:
                     response.setData(ServerController.getInstance().getAllPozicija());

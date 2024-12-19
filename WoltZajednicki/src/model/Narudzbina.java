@@ -101,7 +101,7 @@ public class Narudzbina extends GenericDomainObject {
 
     @Override
     public String valuesForUpdate() {
-        return " konacnaCena = " + konacnaCena + ", isporucena = " + (isporucena ? 1 : 0) + " ";
+        return " konacnaCena = " + konacnaCena + ", isporucena = " + (isporucena ? 1 : 0) + ", klijentID = " + klijent.getKlijentID();
     }
 
     @Override

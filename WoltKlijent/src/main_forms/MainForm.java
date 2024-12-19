@@ -27,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import tableModels.TableModelStavkeNarudzbine;
 import communication.Communication;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -36,10 +37,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -55,6 +59,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private ResourceBundle messages;
     private Administrator ulogovani;
+    private JLabel lblLogo;
 
     /**
      * Creates new form MainForm
@@ -99,6 +104,20 @@ public class MainForm extends javax.swing.JFrame {
         Locale.setDefault(new Locale("sr", "LATN"));
         messages = ResourceBundle.getBundle("resources.Messages", Locale.getDefault());
         createLanguageMenu();
+        addLogoToForm();
+    }
+
+    private void addLogoToForm() {
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("../resources/wolt.png"));
+        Image scaledImage = originalIcon.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH); 
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        lblLogo = new JLabel(scaledIcon);
+        lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLogo.setVerticalAlignment(SwingConstants.CENTER);
+
+        setLayout(new BorderLayout());
+        add(lblLogo, BorderLayout.CENTER);
     }
 
     /**
@@ -227,14 +246,14 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUlogovani)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
 
         pack();

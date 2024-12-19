@@ -384,6 +384,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel2.setText(messages.getString("password"));
         btnLogin.setText(messages.getString("btn_login"));
         btnOtkazi.setText(messages.getString("btn_cancel"));
+        btnNoviAdmin.setText(messages.getString("btn_newAdmin"));
         languageMenu.setText(messages.getString("jmenu"));
         setTitle(messages.getString("title_login"));
         SwingUtilities.updateComponentTreeUI(this);

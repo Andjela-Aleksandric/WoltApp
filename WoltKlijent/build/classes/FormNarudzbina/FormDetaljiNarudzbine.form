@@ -23,17 +23,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanelNarudzbina" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanelNarudzbina" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelNarudzbina" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -54,66 +54,83 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jPanelStavkaNarudzbine" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblKonacanIznos" pref="87" max="32767" attributes="0"/>
-                              <Component id="lblCenaDostave" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lblClient" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lblIsporucena" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtKonacanIznos" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cmbKlijent" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtCenaDostave" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="cbIsporucena" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Component id="jPanelStavkaNarudzbine" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="btnZatvori" linkSize="2" min="-2" pref="172" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnObrisi" linkSize="2" min="-2" pref="180" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnIzmeni" linkSize="2" min="-2" pref="158" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnZatvori" min="-2" pref="172" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnObrisi" min="-2" pref="174" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnIzmeni" min="-2" pref="164" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblKlijent" min="-2" pref="98" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lblIzabranKlijent" alignment="0" pref="92" max="32767" attributes="0"/>
+                              <Component id="lblCenaDostave" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                              <Component id="lblKonacanIznos" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblIsporucena" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="cbIsporucena" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtIzabraniKlijent" alignment="1" min="-2" pref="444" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="btnIzaberiKlijenta" min="-2" pref="185" max="-2" attributes="0"/>
+                              <EmptySpace pref="68" max="32767" attributes="0"/>
+                              <Component id="btnUnesiNovogKlijenta" min="-2" pref="191" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtKonacanIznos" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="txtCenaDostave" alignment="1" min="-2" pref="444" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jPanelStavkaNarudzbine" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblClient" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmbKlijent" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblCenaDostave" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCenaDostave" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblKonacanIznos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtKonacanIznos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblKlijent" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnIzaberiKlijenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnUnesiNovogKlijenta" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblIsporucena" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbIsporucena" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtIzabraniKlijent" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblIzabranKlijent" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtCenaDostave" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCenaDostave" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtKonacanIznos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblKonacanIznos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblIsporucena" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbIsporucena" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnZatvori" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnObrisi" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -139,7 +156,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblKolicina" alignment="0" max="32767" attributes="0"/>
@@ -147,19 +164,26 @@
                                   <Component id="lblNapomena" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="cmbJelo" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane2" pref="447" max="32767" attributes="0"/>
-                                  <Component id="txtKolicina" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="errorKolicina" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtKolicina" alignment="1" pref="447" max="32767" attributes="0"/>
+                                      <Component id="errorKolicina" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane2" min="-2" pref="447" max="-2" attributes="0"/>
+                                  <Component id="cmbJelo" alignment="0" min="-2" pref="447" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnDodajStavku" min="-2" pref="235" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnObrisiStavku" min="-2" pref="235" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="btnDodajStavku" min="-2" pref="235" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="btnObrisiStavku" min="-2" pref="235" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane1" min="-2" pref="552" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -169,9 +193,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblJelo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbJelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblJelo" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbJelo" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -197,8 +221,8 @@
                           <Component id="btnObrisiStavku" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="119" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="151" max="-2" attributes="0"/>
+                      <EmptySpace pref="21" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -318,11 +342,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="lblClient">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Klijent:"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblCenaDostave">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cena dostave:"/>
@@ -332,24 +351,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Kona&#x10d;an iznos:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="cmbKlijent">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbKlijentItemStateChanged"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtKonacanIznos">
         </Component>
@@ -412,6 +413,50 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="cbIsporucena">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnUnesiNovogKlijenta">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Unesi novog klijenta"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUnesiNovogKlijentaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtIzabraniKlijent">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblIzabranKlijent">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Izabrani klijent:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnIzaberiKlijenta">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Izaberi klijenta"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIzaberiKlijentaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblKlijent">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Klijent:"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

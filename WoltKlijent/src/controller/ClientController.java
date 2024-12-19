@@ -19,6 +19,9 @@ import communication.Communication;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.Date;
+import java.util.List;
+import model.AdP;
 import transport.Request;
 import transport.Response;
 import transport.ResponseStatus;
@@ -32,6 +35,8 @@ public class ClientController {
 
     private static ClientController instance;
     private Administrator adminForRegistration;
+    private String nazivAdp;
+    private Date datumOdReg, datumDoReg;
 
     private ClientController() {
     }
@@ -119,15 +124,35 @@ public class ClientController {
         return (ArrayList<StavkaNarudzbine>) sendRequest(Operation.GET_ALL_STAVKA_NARUDZBINE, narudzbina);
     }
 
-    public void register(Administrator a) throws Exception {
+    public void register(Administrator a, String adp, Date datumOd, Date datumDoo) throws Exception {
         this.adminForRegistration = a;
+        this.nazivAdp = adp;
+        this.datumOdReg = datumOd;
+        this.datumDoReg = datumDoo;
     }
 
     public void sendRegisterRequest() throws Exception {
         if (adminForRegistration != null) {
             sendRequest(Operation.REGISTER, adminForRegistration);
+            List<Administrator> admini = getAllAdmini();
+            Long id = admini.get(admini.size()-1).getAdministratorID();
+            System.out.println(id);
+            adminForRegistration.setAdministratorID(id);
+            List<Pozicija> pozicije = getAllPozicija();
+            Pozicija pozicija = null;
+            for (Pozicija p : pozicije) {
+                if(p.getNaziv().equals(nazivAdp)){
+                    pozicija = p;
+                    break;
+                }
+            }
+            AdP adp = new AdP(pozicija, adminForRegistration, datumOdReg, datumDoReg);
+            sendRequest(Operation.ADD_ADP, adp);
         }
         adminForRegistration = null;
+        nazivAdp = null;
+        datumDoReg = null;
+        datumOdReg = null;
     }
 
     private Object sendRequest(int operation, Object data) throws Exception {
@@ -162,9 +187,29 @@ public class ClientController {
     public ArrayList<StavkaNarudzbine> getAllStavkaNarudzbineJela(Jelo jelo) throws Exception {
         return (ArrayList<StavkaNarudzbine>) sendRequest(Operation.GET_ALL_STAVKA_NARUDZBINE, jelo);
     }
+    
+    public ArrayList<Administrator> getAllAdmini() throws Exception {
+        return (ArrayList<Administrator>) sendRequest(Operation.GET_ALL_ADMINISTRATOR, null);
+    }
 
     private void closeConnection() {
         Communication.getInstance().closeSocket();
+    }
+
+    public void insertAdp(AdP adp) throws Exception {
+        sendRequest(Operation.ADD_ADP, adp);
+    }
+
+    public void insertStavkaNarudzbine(StavkaNarudzbine stavka) throws Exception {
+        sendRequest(Operation.ADD_STAVKA_NARUDZBINE, stavka);
+    }
+
+    public void updateStavkaNarudzbine(StavkaNarudzbine stavka) throws Exception {
+        sendRequest(Operation.UPDATE_STAVKA_NARUDZBINE, stavka);
+    }
+
+    public void deleteStavkaNarudzbine(StavkaNarudzbine stavka) throws Exception {
+        sendRequest(Operation.DELETE_STAVKA_NARUDZBINE, stavka);
     }
 
 }

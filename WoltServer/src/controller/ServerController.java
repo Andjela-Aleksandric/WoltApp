@@ -5,6 +5,7 @@
  */
 package controller;
 
+import db.DBBroker;
 import model.Administrator;
 import model.Jelo;
 import model.Klijent;
@@ -14,6 +15,8 @@ import model.Pozicija;
 import model.StavkaNarudzbine;
 import java.util.ArrayList;
 import java.util.List;
+import model.AdP;
+import so.adp.SOInsertADP;
 import so.jelo.SOInsertJelo;
 import so.jelo.SODeleteJelo;
 import so.jelo.SOGetAllJelo;
@@ -22,6 +25,7 @@ import so.klijent.SOInsertKlijent;
 import so.klijent.SODeleteKlijent;
 import so.klijent.SOGetAllKlijent;
 import so.klijent.SOUpdateKlijent;
+import so.login.SOGetAllAdministrator;
 import so.login.SOLogin;
 import so.login.SORegister;
 import so.mesto.SOGetAllMesto;
@@ -30,7 +34,10 @@ import so.narudzbina.SODeleteNarudzbina;
 import so.narudzbina.SOGetAllNarudzbina;
 import so.narudzbina.SOUpdateNarudzbina;
 import so.pozicija.SOGetAllPozicija;
+import so.stavka_narudzbine.SODeleteStavkaNarudzbine;
 import so.stavka_narudzbine.SOGetAllStavkaNarudzbine;
+import so.stavka_narudzbine.SOInsertStavkaNarudzbine;
+import so.stavka_narudzbine.SOUpdateStavkaNarudzbine;
 import thread.ClientHandler;
 
 /**
@@ -74,6 +81,10 @@ public class ServerController {
 
     public void addKlijent(Klijent klijent) throws Exception {
         (new SOInsertKlijent()).genericOperate(klijent);
+    }
+    
+    public void addAdP(AdP adp) throws Exception {
+        (new SOInsertADP()).genericOperate(adp);
     }
 
     public void addNarudzbina(Narudzbina narudzbina) throws Exception {
@@ -129,6 +140,12 @@ public class ServerController {
         so.genericOperate(new Jelo());
         return so.getLista();
     }
+    
+    public ArrayList<Administrator> getAllAdministrator() throws Exception {
+        SOGetAllAdministrator so = new SOGetAllAdministrator();
+        so.genericOperate(new Administrator());
+        return so.getLista();
+    }
 
     public ArrayList<Mesto> getAllMesto() throws Exception {
         SOGetAllMesto so = new SOGetAllMesto();
@@ -177,5 +194,18 @@ public class ServerController {
     public void addClient(ClientHandler ch){
         clients.add(ch);
     }
+
+    public void addStavkaNarudzbine(StavkaNarudzbine stavkaNarudzbine) throws Exception {
+        (new SOInsertStavkaNarudzbine()).genericOperate(stavkaNarudzbine);
+    }
+
+    public void deleteStavkaNarudzbine(StavkaNarudzbine stavkaNarudzbine) throws Exception {
+        (new SODeleteStavkaNarudzbine()).genericOperate(stavkaNarudzbine);
+    }
+
+    public void updateStavkaNarudzbine(StavkaNarudzbine stavkaNarudzbine) throws Exception {
+        (new SOUpdateStavkaNarudzbine()).genericOperate(stavkaNarudzbine);
+    }
+
 
 }

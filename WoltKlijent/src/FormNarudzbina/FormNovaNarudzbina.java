@@ -4,6 +4,8 @@
  */
 package FormNarudzbina;
 
+import FormKlijent.FormIzaberiKlijenta;
+import FormKlijent.FormNoviKlijent;
 import communication.Communication;
 import controller.ClientController;
 import java.awt.Color;
@@ -49,6 +51,8 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
     private Administrator ulogovani;
     private double ukupanIznos;
     private JMenu languageMenu;
+    private Klijent izabraniKlijent;
+
     /**
      * Creates new form FormNovaNarudzbina
      */
@@ -60,12 +64,13 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         errorKolicina.setText("");
         this.ulogovani = Communication.getInstance().getUlogovani();
         popuniJela();
-        popuniKlijente();
+        //popuniKlijente();
         tblStavke.setModel(new TableModelStavkeNarudzbine());
         setTitle("Klijentska forma");
         getContentPane().setBackground(new Color(1, 195, 233));
         txtCenaDostave.setEnabled(false);
         txtKonacanIznos.setEnabled(false);
+        txtIzabraniKlijent.setEnabled(false);
 
         setRobotoFont();
         setForeground(Color.WHITE);
@@ -80,7 +85,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         addDocumentListeners();
         customizeButtons();
     }
-    
+
     private void addDocumentListeners() {
         txtKolicina.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -109,9 +114,14 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
             errorLabel.setForeground(Color.RED);
         } else {
             try {
-                Integer.parseInt(kolicinaText);
-                errorLabel.setText("");
-                txtKolicina.setBackground(Color.WHITE);
+                int kolicina = Integer.parseInt(kolicinaText);
+                if (kolicina > 0) {
+                    errorLabel.setText("");
+                    txtKolicina.setBackground(Color.WHITE);
+                } else {
+                    errorLabel.setText(errorMessage);
+                    errorLabel.setForeground(Color.RED);
+                }
             } catch (NumberFormatException e) {
                 txtKolicina.setBackground(Color.PINK);
             }
@@ -145,9 +155,12 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         lblKlijent = new javax.swing.JLabel();
         lblCenaDostave = new javax.swing.JLabel();
         lblKonacanIznos = new javax.swing.JLabel();
-        cmbKlijent = new javax.swing.JComboBox();
         txtKonacanIznos = new javax.swing.JTextField();
         txtCenaDostave = new javax.swing.JTextField();
+        btnIzaberiKlijenta = new javax.swing.JButton();
+        btnUnesiNovogKlijenta = new javax.swing.JButton();
+        lblIzabranKlijent = new javax.swing.JLabel();
+        txtIzabraniKlijent = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -230,7 +243,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
                 .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
                         .addComponent(btnDodajStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnObrisiStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -276,14 +289,27 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
 
         lblKonacanIznos.setText("Konačan iznos:");
 
-        cmbKlijent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbKlijent.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbKlijentItemStateChanged(evt);
+        txtCenaDostave.setText("500.0din");
+
+        btnIzaberiKlijenta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnIzaberiKlijenta.setText("Izaberi klijenta");
+        btnIzaberiKlijenta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnIzaberiKlijenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzaberiKlijentaActionPerformed(evt);
             }
         });
 
-        txtCenaDostave.setText("500.0din");
+        btnUnesiNovogKlijenta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUnesiNovogKlijenta.setText("Unesi novog klijenta");
+        btnUnesiNovogKlijenta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnUnesiNovogKlijenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnesiNovogKlijentaActionPerformed(evt);
+            }
+        });
+
+        lblIzabranKlijent.setText("Izabrani klijent:");
 
         javax.swing.GroupLayout jPanelNarudzbinaLayout = new javax.swing.GroupLayout(jPanelNarudzbina);
         jPanelNarudzbina.setLayout(jPanelNarudzbinaLayout);
@@ -291,23 +317,32 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
             jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
                 .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelStavkaNarudzbine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblKonacanIznos, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                            .addComponent(lblCenaDostave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblKlijent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
                         .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbKlijent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCenaDostave)
-                            .addComponent(txtKonacanIznos, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanelStavkaNarudzbine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
+                                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblKonacanIznos, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCenaDostave, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCenaDostave)
+                                    .addComponent(txtKonacanIznos, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
+                                        .addComponent(btnIzaberiKlijenta, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnUnesiNovogKlijenta, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNarudzbinaLayout.createSequentialGroup()
+                                .addComponent(lblIzabranKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtIzabraniKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
+            .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelNarudzbinaLayout.setVerticalGroup(
             jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,25 +352,30 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblKlijent)
-                    .addComponent(cmbKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnIzaberiKlijenta)
+                    .addComponent(btnUnesiNovogKlijenta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIzabraniKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIzabranKlijent))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCenaDostave)
                     .addComponent(txtCenaDostave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblKonacanIznos)
-                    .addComponent(txtKonacanIznos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtKonacanIznos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblKonacanIznos))
+                .addGap(18, 18, 18)
                 .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 559, Short.MAX_VALUE)
+            .addGap(0, 582, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -344,12 +384,12 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 527, Short.MAX_VALUE)
+            .addGap(0, 560, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanelNarudzbina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(14, Short.MAX_VALUE)))
+                    .addComponent(jPanelNarudzbina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         pack();
@@ -391,10 +431,10 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
         customizeOptionPane();
         try {
-            Klijent klijent = (Klijent) cmbKlijent.getSelectedItem();
+
             double cenaDostave;
 
-            if (klijent.getStatus().equals("FREE")) {
+            if (izabraniKlijent.getStatus().equals("FREE")) {
                 cenaDostave = 500;
             } else {
                 cenaDostave = 0;
@@ -406,11 +446,18 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
                 return;
             }
 
+            if (tm.getLista().size() == 0) {
+                JOptionPane.showMessageDialog(this, messages.getString("sn_zero"), messages.getString("error_title"), JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Narudzbina narudzbina = new Narudzbina(null, new Date(), cenaDostave,
-                ukupanIznos, false, klijent, ulogovani, tm.getLista());
+                ukupanIznos, false, izabraniKlijent, ulogovani, tm.getLista());
 
             ClientController.getInstance().addNarudzbina(narudzbina);
             txtKonacanIznos.setText("");
+            txtCenaDostave.setText("");
+            txtIzabraniKlijent.setText("");
             tm.getLista().clear();
             tm.fireTableDataChanged();
             JOptionPane.showMessageDialog(this, messages.getString("success_save_order"), messages.getString("success_title"), JOptionPane.INFORMATION_MESSAGE);
@@ -419,69 +466,14 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), messages.getString("error_title"), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
+    private void btnUnesiNovogKlijentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnesiNovogKlijentaActionPerformed
+        new FormNoviKlijent(null, true).setVisible(true);
+    }//GEN-LAST:event_btnUnesiNovogKlijentaActionPerformed
 
-    private void cmbKlijentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbKlijentItemStateChanged
+    private void btnIzaberiKlijentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzaberiKlijentaActionPerformed
+        new FormIzaberiKlijenta(this, true).setVisible(true);
+    }//GEN-LAST:event_btnIzaberiKlijentaActionPerformed
 
-        if (cmbKlijent.getSelectedItem() != null) {
-            Klijent klijent = (Klijent) cmbKlijent.getSelectedItem();
-
-            if (klijent.getStatus().equals("WOLT+")) {
-                txtCenaDostave.setText("Besplatno");
-                TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
-
-                ukupanIznos = tm.vratiUkupanIznos();
-                txtKonacanIznos.setText(String.valueOf(ukupanIznos) + "din");
-
-            } else {
-                txtCenaDostave.setText("500.00din");
-                txtKonacanIznos.setText(String.valueOf(ukupanIznos + 500) + "din");
-            }
-
-        }
-    }//GEN-LAST:event_cmbKlijentItemStateChanged
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormNovaNarudzbina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormNovaNarudzbina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormNovaNarudzbina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormNovaNarudzbina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormNovaNarudzbina dialog = new FormNovaNarudzbina(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-    
     private void setRobotoFont() {
         try {
             InputStream fontStream = getClass().getClassLoader().getResourceAsStream("resources/Roboto-Regular.ttf");
@@ -541,6 +533,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         TitledBorder border2 = (TitledBorder) jPanelStavkaNarudzbine.getBorder();
         border2.setTitle(messages.getString("jpanel_orderItem"));
         lblJelo.setText(messages.getString("lbl_jelo"));
+        lblIzabranKlijent.setText(messages.getString("lbl_izabranKl"));
         lblKlijent.setText(messages.getString("lbl_client"));
         lblKolicina.setText(messages.getString("lbl_quantity"));
         lblCenaDostave.setText(messages.getString("lbl_deliveryPrice"));
@@ -549,6 +542,8 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         btnDodajStavku.setText(messages.getString("btn_addOI"));
         btnObrisiStavku.setText(messages.getString("btn_deleteOI"));
         btnSacuvaj.setText(messages.getString("btn_save"));
+        btnIzaberiKlijenta.setText(messages.getString("btn_izaberiKl"));
+        btnUnesiNovogKlijenta.setText(messages.getString("btn_addClient"));
         TableModelStavkeNarudzbine tmsn2 = (TableModelStavkeNarudzbine) tblStavke.getModel();
         tmsn2.setLanguage(locale);
         txtNapomena.setText(messages.getString("note"));
@@ -590,24 +585,42 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
         }
     }
 
-    private void popuniKlijente() {
-        try {
-            ArrayList<Klijent> klijenti = ClientController.getInstance().getAllKlijent();
+    public Klijent getIzabraniKlijent() {
+        return izabraniKlijent;
+    }
 
-            cmbKlijent.removeAllItems();
+    public void setIzabraniKlijent(Klijent izabraniKlijent) {
+        this.izabraniKlijent = izabraniKlijent;
+        txtIzabraniKlijent.setText(izabraniKlijent.toString());
+        if (izabraniKlijent.getStatus().equals("WOLT+")) {
+            txtCenaDostave.setText("Besplatno");
+            TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
+            ukupanIznos = tm.vratiUkupanIznos();
+            txtKonacanIznos.setText(String.valueOf(ukupanIznos) + "din");
 
-            for (Klijent klijent : klijenti) {
-                cmbKlijent.addItem(klijent);
-            }
-
-        } catch (Exception ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            txtCenaDostave.setText("500.00din");
+            txtKonacanIznos.setText(String.valueOf(ukupanIznos + 500) + "din");
         }
     }
 
+//    private void popuniKlijente() {
+//        try {
+//            ArrayList<Klijent> klijenti = ClientController.getInstance().getAllKlijent();
+//
+//            cmbKlijent.removeAllItems();
+//
+//            for (Klijent klijent : klijenti) {
+//                cmbKlijent.addItem(klijent);
+//            }
+//
+//        } catch (Exception ex) {
+//            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     private void customizeButtons() {
         Color hoverColor = new Color(0, 165, 200);
-        JButton[] buttons = {btnDodajStavku, btnObrisiStavku, btnSacuvaj};
+        JButton[] buttons = {btnDodajStavku, btnObrisiStavku, btnSacuvaj, btnIzaberiKlijenta, btnUnesiNovogKlijenta};
 
         for (JButton button : buttons) {
             button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -628,16 +641,18 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodajStavku;
+    private javax.swing.JButton btnIzaberiKlijenta;
     private javax.swing.JButton btnObrisiStavku;
     private javax.swing.JButton btnSacuvaj;
+    private javax.swing.JButton btnUnesiNovogKlijenta;
     private javax.swing.JComboBox cmbJelo;
-    private javax.swing.JComboBox cmbKlijent;
     private javax.swing.JLabel errorKolicina;
     private javax.swing.JPanel jPanelNarudzbina;
     private javax.swing.JPanel jPanelStavkaNarudzbine;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCenaDostave;
+    private javax.swing.JLabel lblIzabranKlijent;
     private javax.swing.JLabel lblJelo;
     private javax.swing.JLabel lblKlijent;
     private javax.swing.JLabel lblKolicina;
@@ -645,6 +660,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
     private javax.swing.JLabel lblNapomena;
     private javax.swing.JTable tblStavke;
     private javax.swing.JTextField txtCenaDostave;
+    private javax.swing.JTextField txtIzabraniKlijent;
     private javax.swing.JTextField txtKolicina;
     private javax.swing.JTextField txtKonacanIznos;
     private javax.swing.JTextArea txtNapomena;

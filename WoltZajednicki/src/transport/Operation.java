@@ -10,9 +10,9 @@ package transport;
  * @author Anđela
  */
 public interface Operation {
-    public static final int REGISTER = 17;   
     public static final int LOGIN = 0;
     public static final int LOGOUT = 1;
+    public static final int REGISTER = 17;
 
     public static final int ADD_JELO = 2;
     public static final int DELETE_JELO = 3;
@@ -29,10 +29,16 @@ public interface Operation {
     public static final int UPDATE_NARUDZBINA = 12;
     public static final int GET_ALL_NARUDZBINA = 13;
 
+    public static final int ADD_ADP = 18;
+    
     public static final int GET_ALL_STAVKA_NARUDZBINE = 14;
+    public static final int ADD_STAVKA_NARUDZBINE = 20;
+    public static final int UPDATE_STAVKA_NARUDZBINE = 21;
+    public static final int DELETE_STAVKA_NARUDZBINE = 22;
 
     public static final int GET_ALL_MESTO = 15;
     
     public static final int GET_ALL_POZICIJA = 16;
+    public static final int GET_ALL_ADMINISTRATOR = 19;
 
 }

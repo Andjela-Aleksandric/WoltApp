@@ -5,6 +5,8 @@
  */
 package FormNarudzbina;
 
+import FormKlijent.FormIzaberiKlijenta;
+import FormKlijent.FormNoviKlijent;
 import controller.ClientController;
 import java.awt.Color;
 import java.awt.Font;
@@ -17,6 +19,7 @@ import model.Narudzbina;
 import model.StavkaNarudzbine;
 import main_forms.MainForm;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -46,6 +49,7 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
     private JMenu languageMenu;
     private Narudzbina n;
     private double ukupanIznos;
+    private Klijent izabraniKlijent;
 
     public FormDetaljiNarudzbine(JDialog parent, boolean modal, Narudzbina narudzbina) {
         super(parent, modal);
@@ -55,11 +59,12 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
         this.n = narudzbina;
         txtCenaDostave.setEnabled(false);
         txtKonacanIznos.setEnabled(false);
+        this.izabraniKlijent = n.getKlijent();
+        txtIzabraniKlijent.setText(n.getKlijent().toString());
+        txtIzabraniKlijent.setEnabled(false);
         errorKolicina.setText("");
         tblStavke.setModel(new TableModelStavkeNarudzbine());
         popuniJela();
-        cmbKlijent.setEnabled(false);
-        cmbKlijent.getModel().setSelectedItem(narudzbina.getKlijent());
         ukupanIznos = narudzbina.getKonacnaCena();
         txtKonacanIznos.setText(String.valueOf(ukupanIznos) + "din");
         cbIsporucena.setSelected(narudzbina.isIsporucena());
@@ -82,6 +87,25 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
         }
         addDocumentListeners();
         customizeButtons();
+    }
+
+    public Klijent getIzabraniKlijent() {
+        return izabraniKlijent;
+    }
+
+    public void setIzabraniKlijent(Klijent izabraniKlijent) {
+        this.izabraniKlijent = izabraniKlijent;
+        txtIzabraniKlijent.setText(izabraniKlijent.toString());
+        if (izabraniKlijent.getStatus().equals("WOLT+")) {
+            txtCenaDostave.setText("Besplatno");
+            TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
+            ukupanIznos = tm.vratiUkupanIznos();
+            txtKonacanIznos.setText(String.valueOf(ukupanIznos) + "din");
+
+        } else {
+            txtCenaDostave.setText("500.00din");
+            txtKonacanIznos.setText(String.valueOf(ukupanIznos + 500) + "din");
+        }
     }
     
     private void addDocumentListeners() {
@@ -112,9 +136,15 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
             errorLabel.setForeground(Color.RED);
         } else {
             try {
-                Integer.parseInt(kolicinaText);
-                errorLabel.setText("");
-                txtKolicina.setBackground(Color.WHITE);
+                int kolicina = Integer.parseInt(kolicinaText);
+                if (kolicina > 0) {
+                    errorLabel.setText("");
+                    txtKolicina.setBackground(Color.WHITE);
+                } else {
+                    errorLabel.setText(errorMessage);
+                    errorLabel.setForeground(Color.RED);
+                }
+
             } catch (NumberFormatException e) {
                 txtKolicina.setBackground(Color.PINK);
             }
@@ -144,10 +174,8 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtNapomena = new javax.swing.JTextArea();
         errorKolicina = new javax.swing.JLabel();
-        lblClient = new javax.swing.JLabel();
         lblCenaDostave = new javax.swing.JLabel();
         lblKonacanIznos = new javax.swing.JLabel();
-        cmbKlijent = new javax.swing.JComboBox();
         txtKonacanIznos = new javax.swing.JTextField();
         txtCenaDostave = new javax.swing.JTextField();
         btnZatvori = new javax.swing.JButton();
@@ -155,6 +183,11 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
         btnIzmeni = new javax.swing.JButton();
         lblIsporucena = new javax.swing.JLabel();
         cbIsporucena = new javax.swing.JCheckBox();
+        btnUnesiNovogKlijenta = new javax.swing.JButton();
+        txtIzabraniKlijent = new javax.swing.JTextField();
+        lblIzabranKlijent = new javax.swing.JLabel();
+        btnIzaberiKlijenta = new javax.swing.JButton();
+        lblKlijent = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -224,23 +257,27 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
                             .addComponent(lblJelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblNapomena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbJelo, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                            .addComponent(txtKolicina, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(errorKolicina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtKolicina, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                                .addComponent(errorKolicina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbJelo, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
-                        .addComponent(btnDodajStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnObrisiStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                        .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
+                                .addComponent(btnDodajStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnObrisiStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelStavkaNarudzbineLayout.setVerticalGroup(
             jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelStavkaNarudzbineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelStavkaNarudzbineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblJelo)
                     .addComponent(cmbJelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,22 +298,13 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
                     .addComponent(btnDodajStavku)
                     .addComponent(btnObrisiStavku))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
-
-        lblClient.setText("Klijent:");
 
         lblCenaDostave.setText("Cena dostave:");
 
         lblKonacanIznos.setText("Konačan iznos:");
-
-        cmbKlijent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbKlijent.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbKlijentItemStateChanged(evt);
-            }
-        });
 
         txtCenaDostave.setText("500.0din");
 
@@ -309,62 +337,93 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
 
         lblIsporucena.setText("Isporučena:");
 
+        btnUnesiNovogKlijenta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUnesiNovogKlijenta.setText("Unesi novog klijenta");
+        btnUnesiNovogKlijenta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnUnesiNovogKlijenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnesiNovogKlijentaActionPerformed(evt);
+            }
+        });
+
+        lblIzabranKlijent.setText("Izabrani klijent:");
+
+        btnIzaberiKlijenta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnIzaberiKlijenta.setText("Izaberi klijenta");
+        btnIzaberiKlijenta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnIzaberiKlijenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzaberiKlijentaActionPerformed(evt);
+            }
+        });
+
+        lblKlijent.setText("Klijent:");
+
         javax.swing.GroupLayout jPanelNarudzbinaLayout = new javax.swing.GroupLayout(jPanelNarudzbina);
         jPanelNarudzbina.setLayout(jPanelNarudzbinaLayout);
         jPanelNarudzbinaLayout.setHorizontalGroup(
             jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblKonacanIznos, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                            .addComponent(lblCenaDostave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblIsporucena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtKonacanIznos)
-                            .addComponent(cmbKlijent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCenaDostave)
-                            .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                                .addComponent(cbIsporucena)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jPanelStavkaNarudzbine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelStavkaNarudzbine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
                         .addComponent(btnZatvori, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
+                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNarudzbinaLayout.createSequentialGroup()
+                        .addComponent(lblKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
+                        .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblIzabranKlijent, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                            .addComponent(lblCenaDostave, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblKonacanIznos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblIsporucena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(24, 24, 24)))
+                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbIsporucena)
+                    .addComponent(txtIzabraniKlijent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
+                            .addComponent(btnIzaberiKlijenta, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                            .addComponent(btnUnesiNovogKlijenta, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtKonacanIznos))
+                    .addComponent(txtCenaDostave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanelNarudzbinaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnIzmeni, btnObrisi, btnZatvori});
-
         jPanelNarudzbinaLayout.setVerticalGroup(
             jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanelStavkaNarudzbine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblClient)
-                    .addComponent(cmbKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCenaDostave)
-                    .addComponent(txtCenaDostave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblKonacanIznos)
-                    .addComponent(txtKonacanIznos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblKlijent)
+                    .addComponent(btnIzaberiKlijenta)
+                    .addComponent(btnUnesiNovogKlijenta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIzabraniKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIzabranKlijent))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCenaDostave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCenaDostave))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtKonacanIznos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblKonacanIznos))
+                .addGap(10, 10, 10)
+                .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIsporucena)
                     .addComponent(cbIsporucena))
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnZatvori)
                     .addComponent(btnObrisi)
@@ -378,12 +437,12 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelNarudzbina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanelNarudzbina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelNarudzbina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -427,6 +486,7 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
             n.setKonacnaCena(ukupanIznos);
             n.setStavkeNarudzbine(tm.getLista());
             n.setIsporucena(cbIsporucena.isSelected());
+            n.setKlijent(izabraniKlijent);
 
             ClientController.getInstance().updateNarudzbina(n);
             FormPretragaNarudzbine fp = (FormPretragaNarudzbine) getParent();
@@ -474,50 +534,41 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnObrisiStavkuActionPerformed
 
-    private void cmbKlijentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbKlijentItemStateChanged
+    private void btnIzaberiKlijentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzaberiKlijentaActionPerformed
+        new FormIzaberiKlijenta(this, true).setVisible(true);
+    }//GEN-LAST:event_btnIzaberiKlijentaActionPerformed
 
-        if (cmbKlijent.getSelectedItem() != null) {
-            Klijent klijent = (Klijent) cmbKlijent.getSelectedItem();
-
-            if (klijent.getStatus().equals("WOLT+")) {
-                txtCenaDostave.setText("Besplatno");
-                TableModelStavkeNarudzbine tm = (TableModelStavkeNarudzbine) tblStavke.getModel();
-
-                ukupanIznos = tm.vratiUkupanIznos();
-                txtKonacanIznos.setText(String.valueOf(ukupanIznos) + "din");
-
-            } else {
-                txtCenaDostave.setText("500.00din");
-                txtKonacanIznos.setText(String.valueOf(ukupanIznos + 500) + "din");
-            }
-
-        }
-    }//GEN-LAST:event_cmbKlijentItemStateChanged
+    private void btnUnesiNovogKlijentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnesiNovogKlijentaActionPerformed
+        new FormNoviKlijent(null, true).setVisible(true);
+    }//GEN-LAST:event_btnUnesiNovogKlijentaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodajStavku;
+    private javax.swing.JButton btnIzaberiKlijenta;
     private javax.swing.JButton btnIzmeni;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnObrisiStavku;
+    private javax.swing.JButton btnUnesiNovogKlijenta;
     private javax.swing.JButton btnZatvori;
     private javax.swing.JCheckBox cbIsporucena;
     private javax.swing.JComboBox cmbJelo;
-    private javax.swing.JComboBox cmbKlijent;
     private javax.swing.JLabel errorKolicina;
     private javax.swing.JPanel jPanelNarudzbina;
     private javax.swing.JPanel jPanelStavkaNarudzbine;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCenaDostave;
-    private javax.swing.JLabel lblClient;
     private javax.swing.JLabel lblIsporucena;
+    private javax.swing.JLabel lblIzabranKlijent;
     private javax.swing.JLabel lblJelo;
+    private javax.swing.JLabel lblKlijent;
     private javax.swing.JLabel lblKolicina;
     private javax.swing.JLabel lblKonacanIznos;
     private javax.swing.JLabel lblNapomena;
     private javax.swing.JTable tblStavke;
     private javax.swing.JTextField txtCenaDostave;
+    private javax.swing.JTextField txtIzabraniKlijent;
     private javax.swing.JTextField txtKolicina;
     private javax.swing.JTextField txtKonacanIznos;
     private javax.swing.JTextArea txtNapomena;
@@ -594,10 +645,11 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
         messages = ResourceBundle.getBundle("resources.messages", locale);
         lblJelo.setText(messages.getString("lbl_jelo"));
         lblCenaDostave.setText(messages.getString("lbl_deliveryPrice"));
-        lblClient.setText(messages.getString("lbl_client"));
+        lblKlijent.setText(messages.getString("lbl_client"));
         lblKolicina.setText(messages.getString("lbl_quantity"));
         lblIsporucena.setText(messages.getString("lbl_delivered"));
         lblKonacanIznos.setText(messages.getString("lbl_orderPrice"));
+        lblIzabranKlijent.setText(messages.getString("lbl_izabranKl"));
         lblNapomena.setText(messages.getString("lbl_note"));
         TitledBorder border1 = (TitledBorder) jPanelNarudzbina.getBorder();
         border1.setTitle(messages.getString("jpanel_order"));
@@ -605,6 +657,8 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
         border2.setTitle(messages.getString("jpanel_orderItem"));
         btnDodajStavku.setText(messages.getString("btn_addOI"));
         btnObrisiStavku.setText(messages.getString("btn_deleteOI"));
+        btnIzaberiKlijenta.setText(messages.getString("btn_izaberiKl"));
+        btnUnesiNovogKlijenta.setText(messages.getString("btn_addClient"));
         btnZatvori.setText(messages.getString("btn_close"));
         btnIzmeni.setText(messages.getString("btn_modifyOrder"));
         btnObrisi.setText(messages.getString("btn_removeOrder"));
@@ -612,10 +666,10 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
         setTitle(messages.getString("title_login"));
         SwingUtilities.updateComponentTreeUI(this);
     }
-    
+
     private void customizeButtons() {
         Color hoverColor = new Color(0, 165, 200);
-        JButton[] buttons = {btnDodajStavku, btnIzmeni, btnObrisi, btnObrisiStavku, btnZatvori};
+        JButton[] buttons = {btnDodajStavku, btnIzmeni, btnObrisi, btnObrisiStavku, btnZatvori, btnIzaberiKlijenta, btnUnesiNovogKlijenta};
 
         for (JButton button : buttons) {
             button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -633,7 +687,7 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
             });
         }
     }
-    
+
     private void customizeOptionPane() {
         UIManager.put("OptionPane.background", new Color(1, 195, 233));
         UIManager.put("Panel.background", new Color(1, 195, 233));
