@@ -20,12 +20,12 @@ import so.GenericSO;
 public class SOInsertNarudzbina extends GenericSO {
 
     @Override
-    protected void verify(GenericDomainObject ado) throws Exception {
-        if (!(ado instanceof Narudzbina)) {
+    protected void verify(GenericDomainObject gdo) throws Exception {
+        if (!(gdo instanceof Narudzbina)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Narudžbina!");
         }
 
-        Narudzbina narudzbina = (Narudzbina) ado;
+        Narudzbina narudzbina = (Narudzbina) gdo;
 
         if (narudzbina.getStavkeNarudzbine().isEmpty()) {
             throw new Exception("Narudžbina mora da ima barem jednu stavku!");
@@ -34,15 +34,15 @@ public class SOInsertNarudzbina extends GenericSO {
     }
 
     @Override
-    protected void operate(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject gdo) throws Exception {
         
-        PreparedStatement ps = DBBroker.getInstance().insert(ado);
+        PreparedStatement ps = DBBroker.getInstance().insert(gdo);
 
         ResultSet keys = ps.getGeneratedKeys();
         keys.next();
         Long narudzbinaID = keys.getLong(1);
 
-        Narudzbina narudzbina = (Narudzbina) ado;
+        Narudzbina narudzbina = (Narudzbina) gdo;
         narudzbina.setNarudzbinaID(narudzbinaID);
 
         for (StavkaNarudzbine stavkaNarudzbine : narudzbina.getStavkeNarudzbine()) {

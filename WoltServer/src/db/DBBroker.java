@@ -42,34 +42,34 @@ public class DBBroker {
         return instance;
     }
 
-    public ArrayList<GenericDomainObject> select(GenericDomainObject ado) throws SQLException {
-        String upit = "SELECT * FROM " + ado.tableName() + " " + ado.alias()
-                + " " + ado.join() + " " + ado.conditionForSelect();
+    public ArrayList<GenericDomainObject> select(GenericDomainObject gdo) throws SQLException {
+        String upit = "SELECT * FROM " + gdo.tableName() + " " + gdo.alias()
+                + " " + gdo.join() + " " + gdo.conditionForSelect();
         System.out.println(upit);
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(upit);
-        return ado.returnList(rs);
+        return gdo.returnList(rs);
     }
 
-    public PreparedStatement insert(GenericDomainObject ado) throws SQLException {
-        String upit = "INSERT INTO " + ado.tableName() + " "
-                + ado.columnsForInsert() + " VALUES(" + ado.valuesForInsert() + ")";
+    public PreparedStatement insert(GenericDomainObject gdo) throws SQLException {
+        String upit = "INSERT INTO " + gdo.tableName() + " "
+                + gdo.columnsForInsert() + " VALUES(" + gdo.valuesForInsert() + ")";
         System.out.println(upit);
         PreparedStatement ps = connection.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
         ps.executeUpdate();
         return ps;
     }
 
-    public void update(GenericDomainObject ado) throws SQLException {
-        String upit = "UPDATE " + ado.tableName() + " SET "
-                + ado.valuesForUpdate() + " WHERE " + ado.condition();
+    public void update(GenericDomainObject gdo) throws SQLException {
+        String upit = "UPDATE " + gdo.tableName() + " SET "
+                + gdo.valuesForUpdate() + " WHERE " + gdo.condition();
         System.out.println(upit);
         Statement s = connection.createStatement();
         s.executeUpdate(upit);
     }
 
-    public void delete(GenericDomainObject ado) throws SQLException {
-        String upit = "DELETE FROM " + ado.tableName() + " WHERE " + ado.condition();
+    public void delete(GenericDomainObject gdo) throws SQLException {
+        String upit = "DELETE FROM " + gdo.tableName() + " WHERE " + gdo.condition();
         System.out.println(upit);
         Statement s = connection.createStatement();
         s.executeUpdate(upit);

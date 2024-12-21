@@ -71,11 +71,14 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="errorPassword" alignment="1" max="32767" attributes="0"/>
-                              <Component id="errorUsername" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="errorUsername" max="32767" attributes="0"/>
+                              </Group>
                               <Component id="txtUsername" alignment="1" max="32767" attributes="0"/>
                               <Component id="txtNazivBaze" alignment="1" max="32767" attributes="0"/>
-                              <Component id="txtPassword" max="32767" attributes="0"/>
                               <Component id="errorNazivBP" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtPassword" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -100,12 +103,12 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="errorUsername" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="errorPassword" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Component id="btnSacuvaj" min="-2" max="-2" attributes="0"/>

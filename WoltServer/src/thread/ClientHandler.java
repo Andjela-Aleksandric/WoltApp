@@ -111,9 +111,6 @@ public class ClientHandler extends Thread {
                 case Operation.ADD_NARUDZBINA:
                     ServerController.getInstance().addNarudzbina((Narudzbina) request.getData());
                     break;
-                case Operation.ADD_STAVKA_NARUDZBINE:
-                    ServerController.getInstance().addStavkaNarudzbine((StavkaNarudzbine) request.getData());
-                    break;
                 case Operation.DELETE_KLIJENT:
                     ServerController.getInstance().deleteKlijent((Klijent) request.getData());
                     break;
@@ -123,9 +120,6 @@ public class ClientHandler extends Thread {
                 case Operation.DELETE_NARUDZBINA:
                     ServerController.getInstance().deleteNarudzbina((Narudzbina) request.getData());
                     break;
-                case Operation.DELETE_STAVKA_NARUDZBINE:
-                    ServerController.getInstance().deleteStavkaNarudzbine((StavkaNarudzbine) request.getData());
-                    break;
                 case Operation.UPDATE_KLIJENT:
                     ServerController.getInstance().updateKlijent((Klijent) request.getData());
                     break;
@@ -134,9 +128,6 @@ public class ClientHandler extends Thread {
                     break;
                 case Operation.UPDATE_NARUDZBINA:
                     ServerController.getInstance().updateNarudzbina((Narudzbina) request.getData());
-                    break;
-                case Operation.UPDATE_STAVKA_NARUDZBINE:
-                    ServerController.getInstance().updateStavkaNarudzbine((StavkaNarudzbine) request.getData());
                     break;
                 case Operation.GET_ALL_JELO:
                     response.setData(ServerController.getInstance().getAllJelo());

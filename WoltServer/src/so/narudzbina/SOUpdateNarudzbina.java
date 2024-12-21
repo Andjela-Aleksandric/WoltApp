@@ -22,12 +22,12 @@ import so.GenericSO;
 public class SOUpdateNarudzbina extends GenericSO {
 
     @Override
-    protected void verify(GenericDomainObject ado) throws Exception {
-        if (!(ado instanceof Narudzbina)) {
+    protected void verify(GenericDomainObject gdo) throws Exception {
+        if (!(gdo instanceof Narudzbina)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Narudžbina!");
         }
 
-        Narudzbina narudzbina = (Narudzbina) ado;
+        Narudzbina narudzbina = (Narudzbina) gdo;
 
         if (narudzbina.getStavkeNarudzbine().isEmpty()) {
             throw new Exception("Narudžbina mora da ima barem jednu stavku!");
@@ -36,9 +36,9 @@ public class SOUpdateNarudzbina extends GenericSO {
     }
 
     @Override
-    protected void operate(GenericDomainObject ado) throws Exception {
-        DBBroker.getInstance().update(ado);
-        Narudzbina narudzbina = (Narudzbina) ado;
+    protected void operate(GenericDomainObject gdo) throws Exception {
+        DBBroker.getInstance().update(gdo);
+        Narudzbina narudzbina = (Narudzbina) gdo;
         // Postojeće stavke narudžbine u bazi
         List<StavkaNarudzbine> trenutneStavke = ServerController.getInstance().getAllStavkaNarudzbine(narudzbina);
 

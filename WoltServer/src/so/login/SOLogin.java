@@ -22,12 +22,12 @@ public class SOLogin extends GenericSO {
     Administrator ulogovani;
 
     @Override
-    protected void verify(GenericDomainObject ado) throws Exception {
-        if (!(ado instanceof Administrator)) {
+    protected void verify(GenericDomainObject gdo) throws Exception {
+        if (!(gdo instanceof Administrator)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Administrator!");
         }
 
-        Administrator a = (Administrator) ado;
+        Administrator a = (Administrator) gdo;
 
         for (Administrator administrator : ServerController.getInstance().getUlogovaniAdministratori()) {
             if (administrator.getUsername().equals(a.getUsername())) {
@@ -38,12 +38,12 @@ public class SOLogin extends GenericSO {
     }
 
     @Override
-    protected void operate(GenericDomainObject ado) throws Exception {
+    protected void operate(GenericDomainObject gdo) throws Exception {
 
-        Administrator a = (Administrator) ado;
+        Administrator a = (Administrator) gdo;
 
         ArrayList<Administrator> administratori
-                = (ArrayList<Administrator>) (ArrayList<?>) DBBroker.getInstance().select(ado);
+                = (ArrayList<Administrator>) (ArrayList<?>) DBBroker.getInstance().select(gdo);
 
         for (Administrator administrator : administratori) {
             if (administrator.getUsername().equals(a.getUsername())) {

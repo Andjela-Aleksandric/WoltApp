@@ -17,18 +17,18 @@ import so.GenericSO;
 public class SOInsertJelo extends GenericSO {
 
     @Override
-    protected void verify(GenericDomainObject ado) throws Exception {
-        if (!(ado instanceof Jelo)) {
+    protected void verify(GenericDomainObject gdo) throws Exception {
+        if (!(gdo instanceof Jelo)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Jelo!");
         }
 
-        Jelo novoJelo = (Jelo) ado;
+        Jelo novoJelo = (Jelo) gdo;
         
         if (novoJelo.getCena() < 100 || novoJelo.getCena() > 10000) {
             throw new Exception("Cena mora biti između 100din i 10000din!");
         }
 
-        ArrayList<Jelo> jela = (ArrayList<Jelo>) (ArrayList<?>) DBBroker.getInstance().select(ado);
+        ArrayList<Jelo> jela = (ArrayList<Jelo>) (ArrayList<?>) DBBroker.getInstance().select(gdo);
 
         for (Jelo jelo : jela) {
             if (jelo.getNaziv().equals(novoJelo.getNaziv())) {
@@ -38,8 +38,8 @@ public class SOInsertJelo extends GenericSO {
     }
 
     @Override
-    protected void operate(GenericDomainObject ado) throws Exception {
-        DBBroker.getInstance().insert(ado);
+    protected void operate(GenericDomainObject gdo) throws Exception {
+        DBBroker.getInstance().insert(gdo);
     }
     
 }

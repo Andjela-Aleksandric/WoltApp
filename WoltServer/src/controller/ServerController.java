@@ -34,10 +34,7 @@ import so.narudzbina.SODeleteNarudzbina;
 import so.narudzbina.SOGetAllNarudzbina;
 import so.narudzbina.SOUpdateNarudzbina;
 import so.pozicija.SOGetAllPozicija;
-import so.stavka_narudzbine.SODeleteStavkaNarudzbine;
 import so.stavka_narudzbine.SOGetAllStavkaNarudzbine;
-import so.stavka_narudzbine.SOInsertStavkaNarudzbine;
-import so.stavka_narudzbine.SOUpdateStavkaNarudzbine;
 import thread.ClientHandler;
 
 /**
@@ -193,18 +190,6 @@ public class ServerController {
     
     public void addClient(ClientHandler ch){
         clients.add(ch);
-    }
-
-    public void addStavkaNarudzbine(StavkaNarudzbine stavkaNarudzbine) throws Exception {
-        (new SOInsertStavkaNarudzbine()).genericOperate(stavkaNarudzbine);
-    }
-
-    public void deleteStavkaNarudzbine(StavkaNarudzbine stavkaNarudzbine) throws Exception {
-        (new SODeleteStavkaNarudzbine()).genericOperate(stavkaNarudzbine);
-    }
-
-    public void updateStavkaNarudzbine(StavkaNarudzbine stavkaNarudzbine) throws Exception {
-        (new SOUpdateStavkaNarudzbine()).genericOperate(stavkaNarudzbine);
     }
 
 

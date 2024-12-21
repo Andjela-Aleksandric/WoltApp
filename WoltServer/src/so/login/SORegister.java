@@ -21,14 +21,14 @@ import so.GenericSO;
 public class SORegister extends GenericSO {
 
     @Override
-    protected void verify(GenericDomainObject ado) throws Exception {
-        if (!(ado instanceof Administrator)) {
+    protected void verify(GenericDomainObject gdo) throws Exception {
+        if (!(gdo instanceof Administrator)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Administrator!");
         }
 
-        Administrator a = (Administrator) ado;
+        Administrator a = (Administrator) gdo;
 
-        ArrayList<Administrator> admini = (ArrayList<Administrator>) (ArrayList<?>) DBBroker.getInstance().select(ado);
+        ArrayList<Administrator> admini = (ArrayList<Administrator>) (ArrayList<?>) DBBroker.getInstance().select(gdo);
 
         for (Administrator admin : admini) {
             if (admin.getUsername().equals(a.getUsername())) {
@@ -38,8 +38,8 @@ public class SORegister extends GenericSO {
     }
 
     @Override
-    protected void operate(GenericDomainObject ado) throws Exception {
-        Administrator a = (Administrator) ado;
+    protected void operate(GenericDomainObject gdo) throws Exception {
+        Administrator a = (Administrator) gdo;
         String hashedPassword = hashPassword(a.getPassword());
         a.setPassword(hashedPassword);
         DBBroker.getInstance().insert(a);

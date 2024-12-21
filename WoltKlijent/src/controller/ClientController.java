@@ -199,16 +199,4 @@ public class ClientController {
         sendRequest(Operation.ADD_ADP, adp);
     }
 
-    public void insertStavkaNarudzbine(StavkaNarudzbine stavka) throws Exception {
-        sendRequest(Operation.ADD_STAVKA_NARUDZBINE, stavka);
-    }
-
-    public void updateStavkaNarudzbine(StavkaNarudzbine stavka) throws Exception {
-        sendRequest(Operation.UPDATE_STAVKA_NARUDZBINE, stavka);
-    }
-
-    public void deleteStavkaNarudzbine(StavkaNarudzbine stavka) throws Exception {
-        sendRequest(Operation.DELETE_STAVKA_NARUDZBINE, stavka);
-    }
-
 }

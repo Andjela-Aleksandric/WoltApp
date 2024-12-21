@@ -18,14 +18,14 @@ import so.GenericSO;
 public class SOUpdateKlijent extends GenericSO {
 
     @Override
-    protected void verify(GenericDomainObject ado) throws Exception {
-        if (!(ado instanceof Klijent)) {
+    protected void verify(GenericDomainObject gdo) throws Exception {
+        if (!(gdo instanceof Klijent)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Klijent!");
         }
 
-        Klijent izmenjeniKlijent = (Klijent) ado;
+        Klijent izmenjeniKlijent = (Klijent) gdo;
 
-        ArrayList<Klijent> klijenti = (ArrayList<Klijent>) (ArrayList<?>) DBBroker.getInstance().select(ado);
+        ArrayList<Klijent> klijenti = (ArrayList<Klijent>) (ArrayList<?>) DBBroker.getInstance().select(gdo);
 
         for (Klijent klijent : klijenti) {
             if (!klijent.getKlijentID().equals(izmenjeniKlijent.getKlijentID())) {
@@ -41,8 +41,8 @@ public class SOUpdateKlijent extends GenericSO {
     }
 
     @Override
-    protected void operate(GenericDomainObject ado) throws Exception {
-        DBBroker.getInstance().update(ado);
+    protected void operate(GenericDomainObject gdo) throws Exception {
+        DBBroker.getInstance().update(gdo);
     }
 
 }

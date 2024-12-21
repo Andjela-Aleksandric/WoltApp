@@ -17,13 +17,13 @@ import so.GenericSO;
 public class SOInsertADP extends GenericSO{
 
     @Override
-    protected void verify(GenericDomainObject ado) throws Exception {
-        if(!(ado instanceof AdP)){
+    protected void verify(GenericDomainObject gdo) throws Exception {
+        if(!(gdo instanceof AdP)){
             throw new Exception("Prosleđeni objekat nije instanca klase AdP!");
         }
         
-        AdP adp = (AdP) ado;
-        ArrayList<AdP> adps = (ArrayList<AdP>) (ArrayList<?>) DBBroker.getInstance().select(ado);
+        AdP adp = (AdP) gdo;
+        ArrayList<AdP> adps = (ArrayList<AdP>) (ArrayList<?>) DBBroker.getInstance().select(gdo);
 
         for (AdP a : adps) {
             if (adp.getAdministrator().getAdministratorID().equals(a.getAdministrator().getAdministratorID())) {
@@ -35,8 +35,8 @@ public class SOInsertADP extends GenericSO{
     }
 
     @Override
-    protected void operate(GenericDomainObject ado) throws Exception {
-        DBBroker.getInstance().insert(ado);
+    protected void operate(GenericDomainObject gdo) throws Exception {
+        DBBroker.getInstance().insert(gdo);
     }
     
 }

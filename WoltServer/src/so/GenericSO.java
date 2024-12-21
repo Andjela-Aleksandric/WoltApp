@@ -15,13 +15,13 @@ import java.sql.SQLException;
  */
 public abstract class GenericSO {
     
-    protected abstract void verify(GenericDomainObject ado) throws Exception;
-    protected abstract void operate(GenericDomainObject ado) throws Exception;
+    protected abstract void verify(GenericDomainObject gdo) throws Exception;
+    protected abstract void operate(GenericDomainObject gdo) throws Exception;
 
-    public void genericOperate(GenericDomainObject ado) throws Exception {
+    public void genericOperate(GenericDomainObject gdo) throws Exception {
         try {
-            verify(ado);
-            operate(ado);
+            verify(gdo);
+            operate(gdo);
             commit();
         } catch (Exception e) {
             rollback();
