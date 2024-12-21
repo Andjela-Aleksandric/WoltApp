@@ -404,7 +404,7 @@ public class NewAdminRegistrationForm extends javax.swing.JDialog {
                 return;
             } else {
                 if (jDateDatumDo.getDate().before(jDateDatumOd.getDate())) {
-                    JOptionPane.showMessageDialog(this, messages.getString("error_date"),
+                    JOptionPane.showMessageDialog(this, messages.getString("error_dateOdDo"),
                             messages.getString("error_title"),
                             JOptionPane.ERROR_MESSAGE);
                     return;

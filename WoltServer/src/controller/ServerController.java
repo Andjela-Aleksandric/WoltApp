@@ -184,13 +184,4 @@ public class ServerController {
         return clients;
     }
 
-    public void setClients(List<ClientHandler> clients) {
-        this.clients = clients;
-    }
-    
-    public void addClient(ClientHandler ch){
-        clients.add(ch);
-    }
-
-
 }

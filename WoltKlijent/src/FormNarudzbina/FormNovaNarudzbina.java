@@ -123,6 +123,7 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
                 } else {
                     errorLabel.setText(errorMessage);
                     errorLabel.setForeground(Color.RED);
+                    txtKolicina.setBackground(Color.PINK);
                 }
             } catch (NumberFormatException e) {
                 txtKolicina.setBackground(Color.PINK);
@@ -353,10 +354,10 @@ public class FormNovaNarudzbina extends javax.swing.JDialog {
                                 .addComponent(btnUnesiNovogKlijenta, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtIzabraniKlijent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
-            .addGroup(jPanelNarudzbinaLayout.createSequentialGroup()
-                .addGap(144, 144, 144)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNarudzbinaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(137, 137, 137))
         );
         jPanelNarudzbinaLayout.setVerticalGroup(
             jPanelNarudzbinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

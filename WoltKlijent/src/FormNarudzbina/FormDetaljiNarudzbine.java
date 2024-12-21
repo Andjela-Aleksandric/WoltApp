@@ -143,6 +143,7 @@ public class FormDetaljiNarudzbine extends javax.swing.JDialog {
                 } else {
                     errorLabel.setText(errorMessage);
                     errorLabel.setForeground(Color.RED);
+                    txtKolicina.setBackground(Color.PINK);
                 }
 
             } catch (NumberFormatException e) {
