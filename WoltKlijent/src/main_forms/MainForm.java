@@ -68,6 +68,7 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         customizeOptionPane();
         setLocationRelativeTo(null);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.ulogovani = Communication.getInstance().getUlogovani();
         lblUlogovani.setText("Ulogovani administrator: " + ulogovani);
         setTitle("Klijentska forma");
@@ -248,7 +249,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUlogovani, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

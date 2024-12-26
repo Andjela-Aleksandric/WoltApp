@@ -7,6 +7,7 @@ package so.narudzbina;
 
 import controller.ServerController;
 import db.DBBroker;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,7 +42,8 @@ public class SOUpdateNarudzbina extends GenericSO {
         Narudzbina narudzbina = (Narudzbina) gdo;
         // Postojeće stavke narudžbine u bazi
         List<StavkaNarudzbine> trenutneStavke = ServerController.getInstance().getAllStavkaNarudzbine(narudzbina);
-
+        //ArrayList<GenericDomainObject> lista = DBBroker.getInstance().select(narudzbina);
+        //ArrayList<StavkaNarudzbine> trenutneStavke = (ArrayList<StavkaNarudzbine>) (ArrayList<?>) lista;
         // Novi skup stavki iz klijenta
         List<StavkaNarudzbine> noveStavke = narudzbina.getStavkeNarudzbine();
 
