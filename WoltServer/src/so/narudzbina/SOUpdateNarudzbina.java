@@ -41,9 +41,10 @@ public class SOUpdateNarudzbina extends GenericSO {
         DBBroker.getInstance().update(gdo);
         Narudzbina narudzbina = (Narudzbina) gdo;
         // Postojeće stavke narudžbine u bazi
-        List<StavkaNarudzbine> trenutneStavke = ServerController.getInstance().getAllStavkaNarudzbine(narudzbina);
-        //ArrayList<GenericDomainObject> lista = DBBroker.getInstance().select(narudzbina);
-        //ArrayList<StavkaNarudzbine> trenutneStavke = (ArrayList<StavkaNarudzbine>) (ArrayList<?>) lista;
+        StavkaNarudzbine kriterijum = new StavkaNarudzbine();
+        kriterijum.setNarudzbina(narudzbina);
+        List<StavkaNarudzbine> trenutneStavke = (ArrayList<StavkaNarudzbine>) (ArrayList<?>) DBBroker.getInstance().select(kriterijum);
+        
         // Novi skup stavki iz klijenta
         List<StavkaNarudzbine> noveStavke = narudzbina.getStavkeNarudzbine();
 
