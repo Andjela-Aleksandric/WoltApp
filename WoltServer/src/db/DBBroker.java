@@ -42,6 +42,10 @@ public class DBBroker {
         return instance;
     }
 
+    public static void setInstance(DBBroker instance) {
+        DBBroker.instance = instance;
+    }
+    
     public ArrayList<GenericDomainObject> select(GenericDomainObject gdo) throws SQLException {
         String upit = "SELECT * FROM " + gdo.tableName() + " " + gdo.alias()
                 + " " + gdo.join() + " " + gdo.conditionForSelect();

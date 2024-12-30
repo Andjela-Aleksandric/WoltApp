@@ -23,6 +23,13 @@ public class SOInsertADP extends GenericSO{
         }
         
         AdP adp = (AdP) gdo;
+        if(adp.getDatumOd() == null || adp.getDatumDo() == null){
+            throw new Exception("Datum od i datum do moraju biti popunjeni!");
+        }else{
+            if(adp.getDatumDo().before(adp.getDatumOd())){
+                throw new Exception("Datum od mora biti pre datuma do!");
+            }
+        }
         ArrayList<AdP> adps = (ArrayList<AdP>) (ArrayList<?>) DBBroker.getInstance().select(gdo);
 
         for (AdP a : adps) {

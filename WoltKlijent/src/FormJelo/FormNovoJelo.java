@@ -131,7 +131,7 @@ public class FormNovoJelo extends javax.swing.JDialog {
     }
 
     private void validateFieldOpis(javax.swing.JLabel errorLabel, String errorMessage) {
-        if (txtOpis.getText().length() <= 2 || txtOpis.getText().isEmpty() || txtOpis.getText().length() >= 200) {
+        if (txtOpis.getText() == null || txtOpis.getText().isEmpty() || txtOpis.getText().length() <= 2 || txtOpis.getText().length() >= 200) {
             txtOpis.setBackground(Color.PINK);
             errorLabel.setText(errorMessage);
             errorLabel.setForeground(Color.red);

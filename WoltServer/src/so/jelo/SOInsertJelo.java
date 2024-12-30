@@ -23,9 +23,14 @@ public class SOInsertJelo extends GenericSO {
         }
 
         Jelo novoJelo = (Jelo) gdo;
-        
-        if (novoJelo.getCena() < 100 || novoJelo.getCena() > 10000) {
-            throw new Exception("Cena mora biti između 100din i 10000din!");
+        if (novoJelo.getNaziv().isEmpty()  || novoJelo.getNaziv().length()<=2 || novoJelo.getNaziv().length() >= 50){
+            throw new Exception("Naziv jela mora sadržati više od 2 i manje od 50 karaktera!");
+        }
+        if (novoJelo.getCena() <= 50 || novoJelo.getCena() >= 10000) {
+            throw new Exception("Cena mora biti veća od 50din i manja od 10000din!");
+        }
+        if (novoJelo.getOpis().isEmpty()  || novoJelo.getOpis().length()<=2 || novoJelo.getOpis().length() >= 200){
+            throw new Exception("Opis jela mora sadržati više od 2 i manje od 200 karaktera!");
         }
 
         ArrayList<Jelo> jela = (ArrayList<Jelo>) (ArrayList<?>) DBBroker.getInstance().select(gdo);
